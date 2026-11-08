@@ -1,12 +1,13 @@
 import os
 import urllib.request
 import json
-import re
+import time
 from google import genai
 from google.genai import types
+from google.genai.errors import ServerError, ClientError
 
 def fetch_espn_ufc_data():
-    """ESPN公式APIから直近〜次回のUFC大会データ（カード・選手名・顔写真・オッズ）を取得"""
+    """ESPN公式APIから直近〜次回のUFC大会データを取得"""
     url = "https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard"
     req = urllib.request.Request(
         url,
@@ -15,7 +16,7 @@ def fetch_espn_ufc_data():
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             data = json.loads(resp.read().decode('utf-8'))
-            return json.dumps(data, ensure_ascii=False)[:12000] # トークン上限内に収めて抽出
+            return json.dumps(data, ensure_ascii=False)[:12000]
     except Exception as e:
         print(f"ESPN fetch warning: {e}")
         return "{}"
@@ -69,17 +70,31 @@ def generate():
 - 各試合カードは枠線で囲み、選手顔写真の横並び、テーブルによる基本データ比較、見出し付きの予想枠を整理して配置すること
 """
 
-    # 429制限を回避するため、検索ツールなしの純粋な高速推論モデルを指定
-    response = client.models.generate_content(
-        model='gemini-3.8-flash',
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            temperature=0.1,
-        ),
-    )
+    # 503エラー（一時過負荷）対策：最大3回のリトライ処理
+    max_retries = 3
+    retry_delay = 10  # 10秒待機
 
-    content = response.text
+    for attempt in range(1, max_retries + 1):
+        try:
+            print(f"Calling Gemini API (Attempt {attempt}/{max_retries})...")
+            response = client.models.generate_content(
+                model='gemini-3.8-flash',
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_instruction,
+                    temperature=0.1,
+                ),
+            )
+            content = response.text
+            break
+        except (ServerError, ClientError) as e:
+            print(f"API Warning on attempt {attempt}: {e}")
+            if attempt < max_retries:
+                print(f"Waiting {retry_delay} seconds before retrying...")
+                time.sleep(retry_delay)
+                retry_delay *= 2  # 待機時間を延長
+            else:
+                raise e
 
     # コードブロックタグの除去
     if content.startswith("```html"):

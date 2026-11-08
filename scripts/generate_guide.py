@@ -54,7 +54,7 @@ def generate():
 
     # Google Search Groundingを有効にして最新情報を収集
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-3.8-flash',
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=system_instruction,

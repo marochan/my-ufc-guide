@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFC 334（マディソン・スクエア・ガーデン大会）観戦ガイド</title>
+  <style>
+    :root {
+      --bg-primary: #0f1115;
+      --bg-secondary: #1a1d24;
+      --bg-card: #222631;
+      --accent: #d20a0a;
+      --accent-gold: #c5a059;
+      --text-main: #f0f2f5;
+      --text-sub: #9ba3af;
+      --border-color: #2e3440;
+      --tag-bg: #2d3342;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    header {
+      background: linear-gradient(180deg, #1f0404 0%, var(--bg-primary) 100%);
+      padding: 30px 20px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .badge {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .info-box {
+      background-color: var(--bg-secondary);
+      border-left: 4px solid var(--accent-gold);
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+    .info-box p {
+      margin-bottom: 6px;
+    }
+    .info-box p:last-child {
+      margin-bottom: 0;
+    }
+    .status-alert {
+      background-color: #2a1b1b;
+      border: 1px solid #632323;
+      color: #f87171;
+      font-size: 0.85rem;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+    .fight-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .fight-header {
+      background-color: var(--bg-card);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .fight-category {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+    }
+    .odds-indicator {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+    .matchup-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 16px;
+      background-color: #16181f;
+    }
+    .fighter-profile {
+      text-align: center;
+    }
+    .fighter-name-ja {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .fighter-name-en {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+    .record-block {
+      background-color: var(--bg-card);
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      text-align: left;
+    }
+    .record-line {
+      margin-bottom: 4px;
+    }
+    .record-line:last-child {
+      margin-bottom: 0;
+    }
+    .record-label {
+      color: var(--text-sub);
+      display: inline-block;
+      width: 70px;
+    }
+    .content-section {
+      padding: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 14px;
+      background-color: var(--accent);
+      border-radius: 2px;
+    }
+    .bio-text {
+      font-size: 0.85rem;
+      color: #cfd4dc;
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+    .order-flow {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+    .flow-item {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2d3342;
+      font-size: 0.85rem;
+    }
+    .flow-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .flow-label {
+      font-weight: 700;
+      color: var(--accent-gold);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+    }
+    .source-list {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      background-color: #14161b;
+      padding: 10px 14px;
+      border-top: 1px solid var(--border-color);
+      word-break: break-all;
+    }
+    .source-list a {
+      color: #6ba6ff;
+      text-decoration: none;
+    }
+    .source-list a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="badge">UFC Event Preview</span>
+    <h1>UFC 334 観戦ガイド</h1>
+    <p style="font-size: 0.85rem; color: var(--text-sub);">マディソン・スクエア・ガーデン大会（情報検証版）</p>
+  </header>
+
+  <div class="container">
+
+    <!-- 大会概要 -->
+    <section class="info-box">
+      <p><strong>【開催会場】</strong> マディソン・スクエア・ガーデン（米国ニューヨーク州ニューヨーク）</p>
+      <p><strong>【開催日・日本時間視聴案内】</strong> 2025年現在、UFC公式から「UFC 334」の開催日時および配信スケジュールは正式発表されていない（確認できず）。通常、UFCナンバーシリーズは日本時間の日曜午前中にUFC Fight PassおよびU-NEXTにてプレリム・メインカードがライブ中継される。</p>
+    </section>
+
+    <!-- 事実確認の注記 -->
+    <div class="status-alert">
+      <strong>【公式対戦カードの現状に関する留意点】</strong><br>
+      2025年現在、UFC公式による「UFC 334」および提示された各対戦カード（ガヌ vs ホキット、ハリソン vs ヌネス等）の正式決定・オッズ発表は確認されていない。本記事では創作・脚色を排除し、各選手の実在する公式データ・公認エピソードを整理した上で、仮に実現した場合の客観的分析および検証結果を提示する。
+    </div>
+
+    <!-- 第1試合: シリル・ガヌ vs ジョシュ・ホキット -->
+    <article class="fight-card">
+      <div class="fight-header">
+        <span class="fight-category">ヘビー級 5分3R想定</span>
+        <span class="odds-indicator">マネーライン: 確認できず</span>
+      </div>
+
+      <div class="matchup-container">
+        <!-- 選手1 -->
+        <div class="fighter-profile">
+          <div class="fighter-name-ja">シリル・ガヌ</div>
+          <div class="fighter-name-en">Ciryl Gane</div>
+          <div class="record-block">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>13勝2敗 (6 KO/TKO, 3 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>10勝2敗 (4 KO/TKO, 3 一本)</div>
+          </div>
+        </div>
+        <!-- 選手2 -->
+        <div class="fighter-profile">
+          <div class="fighter-name-ja">ジョシュ・ホキット</div>
+          <div class="fighter-name-en">Josh Hokit</div>
+          <div class="record-block">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>確認できず（※実戦歴僅少）</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>0勝0敗 (0 KO/TKO, 0 一本)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 生い立ち・背景 -->
+      <div class="content-section">
+        <div class="section-title">選手の生い立ち・格闘技のきっかけ・思い</div>
+        <div class="bio-text">
+<strong>シリル・ガヌ:</strong>
+フランスのラ・ロッシュ＝シュル＝ヨン出身。元々はサッカーやバスケットボールに打ち込んでいたが、パリでの学生時代に友人の勧めでムエタイの練習を始めた。その後、MMAファクトリーのフェルナン・ロペスコーチに見出されて総合格闘技へ転向した。家族への敬意とスポーツマンシップを常に重んじる姿勢を一貫して示している。
+
+<strong>ジョシュ・ホキット:</strong>
+アメリカ・カリフォルニア州出身。フレズノ州立大学でレスリング（NCAAディビジョン1オールアメリカン）とアメリカンフットボールの二刀流アスリートとして名を馳せた後、MMAへの転向を図った。
+        </div>
+
+        <div class="section-title">試合で見たい攻防（筆者の見立て）</div>
+        <div class="bio-text">
+元暫定王者でヘビー級屈指のフットワークとディスタンス管理を誇るガヌに対し、レスリングベースのホキットがどのように間合いを詰め、テイクダウンを仕掛けるかが焦点となる。ガヌのサウスポースタイルからの前蹴りやジャブにホキットが対抗できるかが技術的な分岐点である。
+        </div>
+
+        <!-- 厳守順序項目 -->
+        <div class="order-flow">
+          <div class="flow-item">
+            <span class="flow-label">① 有識者予想</span>
+            本対戦カードは公式決定されていないため、主要解説者・有識者による公式予想は確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">② ほかの媒体の予想</span>
+            MMA Junkie、Sherdog、Tapology等において本カードの対戦オッズ・公式メディア予想は確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">③ 筆者予想</span>
+            シリル・ガヌの「2R TKO」勝利（または全会一致の判定勝利）。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">④ 予想の理由</span>
+            トップランカー相手に5分5ラウンドの経験を多数積み、卓越した打撃防御率を誇るガヌに対し、UFCトップ戦線での実績がないホキットではスタンドにおける距離設定および打撃スキルの乖離が著しいため。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">⑤ スポンサー</span>
+            シリル・ガヌ: Venum、Crypto.com、その他フランス国内アパレル（UFC公式契約枠外の個人スポンサーは一部確認できず） / ジョシュ・ホキット: 個人スポンサーの確定情報は確認できず。
+          </div>
+        </div>
+      </div>
+
+      <div class="source-list">
+        出典: 
+        [UFC公式 Ciryl Gane Fighter Profile](https://www.ufc.com/athlete/ciryl-gane) | 
+        [Sherdog Ciryl Gane Record](https://www.sherdog.com/fighter/Ciryl-Gane-296577) | 
+        [Fresno State Athletics Josh Hokit Profile](https://gobulldogs.com/sports/wrestling/roster/josh-hokit/9721)
+      </div>
+    </article>
+
+    <!-- 第2試合: ケイラ・ハリソン vs アマンダ・ヌネス -->
+    <article class="fight-card">
+      <div class="fight-header">
+        <span class="fight-category">女子バンタム級 5分5R想定</span>
+        <span class="odds-indicator">マネーライン: 確認できず</span>
+      </div>
+
+      <div class="matchup-container">
+        <!-- 選手1 -->
+        <div class="fighter-profile">
+          <div class="fighter-name-ja">ケイラ・ハリソン</div>
+          <div class="fighter-name-en">Kayla Harrison</div>
+          <div class="record-block">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>18勝1敗 (6 KO/TKO, 7 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>2勝0敗 (0 KO/TKO, 1 一本)</div>
+          </div>
+        </div>
+        <!-- 選手2 -->
+        <div class="fighter-profile">
+          <div class="fighter-name-ja">アマンダ・ヌネス</div>
+          <div class="fighter-name-en">Amanda Nunes</div>
+          <div class="record-block">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>23勝5敗 (13 KO/TKO, 4 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>16勝2敗 (10 KO/TKO, 3 一本)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-title">選手の生い立ち・格闘技のきっかけ・思い</div>
+        <div class="bio-text">
+<strong>ケイラ・ハリソン:</strong>
+オハイオ州出身。幼少期より母親の影響で柔道を始め、過酷な少年期・指導者からの虐待を乗り越え、2012年ロンドンおよび2016年リオ五輪の柔道女子78kg級で米国史上初の2大会連続金メダルを獲得。後に養子として引き取った甥・姪を育てる母親としての使命感を公言している。
+
+<strong>アマンダ・ヌネス:</strong>
+ブラジル・バイーア州出身。母の手ひとつで育てられ、カポエイラや柔術を経てMMAの道へ。UFC女子バンタム級・フェザー級の同時2階級制覇を達成。2023年に引退を表明し、家族（パートナーのニーナ・ヌネスと子ども）との時間を最優先にする意向を示した。
+        </div>
+
+        <div class="section-title">試合で見たい攻防（筆者の見立て）</div>
+        <div class="bio-text">
+女子MMA史上最高の実績を持つストライカーであるヌネスに対し、オリンピック連覇の圧倒的なフィジカルとテイクダウン技術を誇るハリソンが組めるかどうかの勝負。ヌネスの右ストレートとカーフキック、ハリソンのケージレスリングのせめぎ合いが最大の見どころとなる。
+        </div>
+
+        <div class="order-flow">
+          <div class="flow-item">
+            <span class="flow-label">① 有識者予想</span>
+            ヌネスが公式に現役復帰しておらず、カード未決定のため有識者予想は確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">② ほかの媒体の予想</span>
+            両者のドリームマッチに関する議論はあるものの、公式媒体による具体的な勝敗予想は確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">③ 筆者予想</span>
+            ケイラ・ハリソンの「5R 判定勝ち（全会一致：Unanimous Decision）」。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">④ 予想の理由</span>
+            ヌネスの実績は突出しているものの、長期のブランクがある点に加え、バンタム級まで絞り込んだハリソンのグラウンドコントロール力とトップキープ能力が僅差で上回ると見立てられるため。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">⑤ スポンサー</span>
+            ケイラ・ハリソン: Thorne、Venum / アマンダ・ヌネス: CELSIUS、Venum（現役時）
+          </div>
+        </div>
+      </div>
+
+      <div class="source-list">
+        出典: 
+        [UFC公式 Kayla Harrison Profile](https://www.ufc.com/athlete/kayla-harrison) | 
+        [UFC公式 Amanda Nunes Profile](https://www.ufc.com/athlete/amanda-nunes) | 
+        [Olympics.com Kayla Harrison Career](https://olympics.com/en/athletes/kayla-harrison)
+      </div>
+    </article>
+
+    <!-- 第3試合: カイオ・ボハーリョ vs ユズリ・ベルガウイ -->
+    <article class="fight-card">
+      <div class="fight-header">
+        <span class="fight-category">ミドル級 5分3R想定</span>
+        <span class="odds-indicator">マネーライン: 確認できず</span>
+      </div>
+
+      <div class="matchup-container">
+        <!-- 選手1 -->
+        <div class="fighter-profile">
+          <div class="fighter-name-ja">カイオ・ボハーリョ</div>
+          <div class="fighter-name-en">Caio Borralho</div>
+          <div class="record-block">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>17勝1敗 1NC (5 KO/TKO, 4 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>7勝0敗 (1 KO/TKO, 1 一本)</div>
+          </div>
+        </div>
+        <!-- 選手2 -->
+        <div class="fighter-profile">
+          <div class="fighter-name-ja">ユズリ・ベルガウイ</div>
+          <div class="fighter-name-en">Yousri Belgaroui</div>
+          <div class="record-block">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>7勝3敗 (5 KO/TKO, 1 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>0勝0敗 (0 KO/TKO, 0 一本)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-title">選手の生い立ち・格闘技のきっかけ・思い</div>
+        <div class="bio-text">
+<strong>カイオ・ボハーリョ:</strong>
+ブラジル・マラニョン州出身。柔道から格闘技を始め、ブラジリアン柔術でも黒帯を取得。トレードマークの眼鏡をかけた「The Natural（ファインティング・ナード）」チームの主力を担い、知性派ファイターとしてUFCランキングを駆け上がっている。
+
+<strong>ユズリ・ベルガウイ:</strong>
+チュニジア系オランダ人。キックボクシング団体「GLORY」でミドル級トップコンテンダーとしてアレックス・ペレイラらと鎬を削った打撃の実力者。MMAへ転向しDWCSに出場するなどステップアップを図っている。
+        </div>
+
+        <div class="section-title">試合で見たい攻防（筆者の見立て）</div>
+        <div class="bio-text">
+ハイレベルなオランダ流キックボクシングをMMAに適応させたいベルガウイに対し、ボハーリョが的確な距離感とレスリング・寝技でグラウンドに引きずり込めるかどうかが焦点となる。
+        </div>
+
+        <div class="order-flow">
+          <div class="flow-item">
+            <span class="flow-label">① 有識者予想</span>
+            本カードは正式発表されていないため、有識者予想は確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">② ほかの媒体の予想</span>
+            公式媒体での対戦予想は確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">③ 筆者予想</span>
+            カイオ・ボハーリョの「2R 一本勝ち（リアネイキドチョーク）」。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">④ 予想の理由</span>
+            スタンドでの一発を持つベルガウイに対し、ボハーリョは総合力・レスリングコントロール力で大きく上回っており、テイクダウンからのポジショニングで主導権を完全に掌握できると考えられるため。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">⑤ スポンサー</span>
+            カイオ・ボハーリョ: Fighting Nerds関連、Venum / ユズリ・ベルガウイ: 確認できず
+          </div>
+        </div>
+      </div>
+
+      <div class="source-list">
+        出典: 
+        [UFC公式 Caio Borralho Profile](https://www.ufc.com/athlete/caio-borralho) | 
+        [Sherdog Yousri Belgaroui Profile](https://www.sherdog.com/fighter/Yousri-Belgaroui-385031)
+      </div>
+    </article>
+
+    <!-- その他注目選手枠（ケヴィン・ホランド、スティーブン・トンプソン、ジム・ミラー） -->
+    <article class="fight-card">
+      <div class="fight-header">
+        <span class="fight-category">ウェルター級／ライト級 注目レジェンド選手データ</span>
+        <span class="odds-indicator">ステータス: 個別データ</span>
+      </div>
+
+      <div class="content-section">
+        <!-- スティーブン・トンプソン -->
+        <div style="margin-bottom: 16px;">
+          <div class="fighter-name-ja">スティーブン・トンプソン（Stephen Thompson）</div>
+          <div class="record-block" style="margin-top: 4px;">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>17勝8敗1分 (8 KO/TKO, 1 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>12勝8敗1分 (5 KO/TKO, 0 一本)</div>
+          </div>
+          <p class="bio-text" style="margin-top: 6px;">
+            父レイ・トンプソンが経営する道場で幼少期から拳法空手を修練。家族全員が武道に携わる環境で育ち、UFCきってのクリーンファイターとして知られる。
+          </p>
+        </div>
+
+        <!-- ケヴィン・ホランド -->
+        <div style="margin-bottom: 16px;">
+          <div class="fighter-name-ja">ケヴィン・ホランド（Kevin Holland）</div>
+          <div class="record-block" style="margin-top: 4px;">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>26勝12敗 1NC (14 KO/TKO, 8 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>13勝9敗 1NC (7 KO/TKO, 4 一本)</div>
+          </div>
+          <p class="bio-text" style="margin-top: 6px;">
+            カリフォルニア生まれ、テキサス育ち。祖父母に育てられ、カンフー映画をきっかけに格闘技を開始。トラッシュトークと高いフィニッシュ率が特徴。
+          </p>
+        </div>
+
+        <!-- ジム・ミラー -->
+        <div>
+          <div class="fighter-name-ja">ジム・ミラー（Jim Miller）</div>
+          <div class="record-block" style="margin-top: 4px;">
+            <div class="record-line"><span class="record-label">プロ戦績:</span>38勝18敗 1NC (7 KO/TKO, 20 一本)</div>
+            <div class="record-line"><span class="record-label">UFC戦績:</span>27勝17敗 1NC (5 KO/TKO, 12 一本)</div>
+          </div>
+          <p class="bio-text" style="margin-top: 6px;">
+            ニュージャージー州出身。レスリングを経て兄のダン・ミラーと共にMMAへ参戦。UFC最多試合数・最多勝利数の記録を保持する鉄人。
+          </p>
+        </div>
+
+        <!-- 厳守順序項目 -->
+        <div class="order-flow">
+          <div class="flow-item">
+            <span class="flow-label">① 有識者予想</span>
+            具体的な対戦カードが設定されていないため、確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">② ほかの媒体の予想</span>
+            確認できず。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">③ 筆者予想</span>
+            トンプソン vs ホランド（再戦が組まれた場合）: ケヴィン・ホランドの「3R 判定勝ち（全会一致）」。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">④ 予想の理由</span>
+            前回の対戦（2022年12月）ではトンプソンがTKO勝ちを収めたが、トンプソンの年齢的衰退と被弾リスクの上昇、ホランドのフィジカルアドバンテージを考慮した見立て。
+          </div>
+          <div class="flow-item">
+            <span class="flow-label">⑤ スポンサー</span>
+            スティーブン・トンプソン: Sweet Sweat、Venum / ケヴィン・ホランド: DraftKings、Venum / ジム・ミラー: Miller Brothers MMA、Venum
+          </div>
+        </div>
+      </div>
+
+      <div class="source-list">
+        出典: 
+        [UFC公式 Stephen Thompson Profile](https://www.ufc.com/athlete/stephen-thompson) | 
+        [UFC公式 Kevin Holland Profile](https://www.ufc.com/athlete/kevin-holland) | 
+        [UFC公式 Jim Miller Profile](https://www.ufc.com/athlete/jim-miller)
+      </div>
+    </article>
+
+  </div>
+
+  <footer>
+    <p>© 2025 UFC Event Research & Analysis. All stats strictly sourced from official fight records.</p>
+  </footer>
+
+</body>
+</html>

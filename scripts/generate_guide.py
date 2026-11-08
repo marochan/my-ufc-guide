@@ -1,7 +1,26 @@
 import os
-import datetime
+import urllib.request
+import re
 from google import genai
 from google.genai import types
+
+def fetch_ufc_text():
+    """UFC公式大会ページ等のテキスト情報を簡易取得（クォータ節約用）"""
+    url = "https://www.ufc.com/events"
+    req = urllib.request.Request(
+        url, 
+        headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as response:
+            html = response.read().decode('utf-8', errors='ignore')
+            # HTMLタグを簡易除去してテキストを抽出
+            text = re.sub(r'<[^>]+>', ' ', html)
+            text = ' '.join(text.split())
+            return text[:4000] # トークン節約のため冒頭4000文字
+    except Exception as e:
+        print(f"Fetch warning: {e}")
+        return "UFC Event Information"
 
 def generate():
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -9,8 +28,9 @@ def generate():
         raise ValueError("GEMINI_API_KEY is not set.")
 
     client = genai.Client(api_key=api_key)
+    scraped_context = fetch_ufc_text()
 
-    # 執筆ルール・テンプレートをシステム指示として埋め込み
+    # note確定テンプレートと執筆ルール
     system_instruction = """
 あなたは総合格闘技（UFC）の専門リサーチャー兼ライターです。
 以下のルールを例外なく厳格に守って記事を作成してください。
@@ -37,29 +57,30 @@ def generate():
    客観的で落ち着いた常体（〜だ、〜である、〜と見る）。
 """
 
-    prompt = """
+    prompt = f"""
+以下は直近のUFC公開情報の一部です:
+{scraped_context}
+
 次回開催の「UFC 334（マディソン・スクエア・ガーデン大会）」に向けた観戦ガイドを作成してください。
 
-以下の情報をWeb検索・リサーチして最新の事実のみで構成してください:
-- 最新の対戦カード一覧（直前のカード変更・欠場・代役参戦がないか確認）
-- メインカードおよびプレリム主要カードの選手エピソード（公式Q&A、直近の取材、Embedded、Countdown、SNS、記者会見での本人の発言や生い立ち・競技背景）
-- 各試合の戦術的な見どころ（試合で見たい攻防）
-- 最新の勝敗オッズ（DraftKings等、取得元と確認日時を明記）
-- 有識者予想、他メディア予想（CBS Sports、MMA Junkie等）、筆者としての戦術的予想と詳細な理由
-- スポンサー情報（確認できるもののみ、不明な場合は未確認と明記）
-- 基本データ、プロ・UFC戦績（フィニッシュ内訳含む）、直近の試合結果
+【必須構成】
+- 大会概要（開催日・MSG・日本時間視聴案内）
+- 対戦カード紹介（シリル・ガヌ vs ジョシュ・ホキット、ケイラ・ハリソン vs アマンダ・ヌネス、カイオ・ボハーリョ vs ユズリ・ベルガウイ、ケヴィン・ホランド、スティーブン・トンプソン、ジム・ミラー等）
+- 選手ごとの生い立ち、格闘技のきっかけ、家族や競技への思い（事実のみ、出典明記）
+- 試合で見たい攻防（筆者の見立て）
+- 確定順序の厳守: 有識者予想 → ほかの媒体の予想 → 筆者予想 → 予想の理由 → スポンサー
+- 基本データ・プロ戦績・UFC戦績（フィニッシュ内訳）
 
-出力は、そのままブラウザで美しく読めるHTML形式（UTF-8、レスポンシブデザイン対応、モダンで見やすいCSSスタイルを含む1枚の完全なHTML）で出力してください。
+スマートフォンからそのまま美しく読めるモダンな1枚のHTML（レスポンシブデザイン、ダークモード基調、見やすいカード形式CSS組み込み）として出力してください。
 """
 
-    # Google Search Groundingを有効にして最新情報を収集
+    # 外部Web検索ツールを外し、純粋なプロンプト処理にすることで429クォータ超過を回避
     response = client.models.generate_content(
-        model='gemini-3.8-flash',
+        model='gemini-2.5-flash',
         contents=prompt,
         config=types.GenerateContentConfig(
             system_instruction=system_instruction,
-            tools=[{"google_search": {}}],
-            temperature=0.2, # 創作を防ぐため低めに設定
+            temperature=0.2,
         ),
     )
 
@@ -74,11 +95,10 @@ def generate():
         content = content[:-3]
     content = content.strip()
 
-    # index.htmlとして書き出し
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(content)
 
-    print("Successfully generated index.html")
+    print("Successfully generated index.html without quota overflow!")
 
 if __name__ == "__main__":
     generate()

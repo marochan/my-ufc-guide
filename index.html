@@ -359,6 +359,84 @@ html {
   scroll-margin-top: 30px;
 }
 
+
+/* Consensus Card & Table */
+.consensus-card {
+  margin-top: 18px;
+  margin-bottom: 22px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+.consensus-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.consensus-badge {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.02em;
+}
+.consensus-subbadge {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.source-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+.source-sub {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+.tapology-tag { background: #0369a1; color: #e0f2fe; border: 1px solid #38bdf8; }
+.covers-tag { background: #15803d; color: #dcfce7; border: 1px solid #4ade80; }
+.dk-tag { background: #b45309; color: #fef3c7; border: 1px solid #fbbf24; }
+.badge-pct {
+  display: inline-block;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 4px;
+}
+.consensus-table tbody th {
+  background: rgba(0, 0, 0, 0.25);
+  font-size: 0.85rem;
+  color: #cbd5e1;
+}
+.consensus-table tbody td {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  vertical-align: middle;
+}
+
 /* Footer */
 .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); margin-top: 60px; color: var(--text-muted); font-size: 0.85rem; }
 .footer a { color: var(--accent-blue); text-decoration: none; }
@@ -573,6 +651,53 @@ html {
           </table>
         </div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>シリル・ガーヌ</strong> <span class="badge-pct">73% 支持</span></td>
+                  <td><strong>シリル・ガーヌ</strong> (技術・間合い支配)</td>
+                  <td><strong>シリル・ガーヌ</strong> (-240 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>KO/TKO</strong> (54% 最多支持)</td>
+                  <td><strong>KO/TKO</strong> (ボディ・カーフ削りTKO)</td>
+                  <td><strong>Gane by KO/TKO</strong> (+160 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第3〜4ラウンド</strong> (後半フィニッシュ)</td>
+                  <td><strong>Under 4.5 Rounds</strong> (4R想定)</td>
+                  <td><strong>Under 3.5 Rounds</strong> (-125)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (89%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (フルマーク)</td>
+                  <td>Gane by Decision (+300 / 判定時3-0濃厚)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h5>マネーライン / 最新オッズの評価</h5>
         <p class="article-p">米大手スポーツブック（DraftKingsおよびFightOdds.io）の最新マネーラインオッズでは、<strong>シリル・ガーヌが「-240（勝率予測約70%）」の本命（ファボリット）</strong>、急速に台頭した挑戦者<strong>ジョシュ・ホキットが「+195」の大穴（アンダードッグ）</strong>と評価されています。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: DraftKings Sportsbook</span></p>
         <p class="article-p">タイトル戦の経験値と圧倒的な打撃技術を持つ王者シリル・ガーヌが手堅く支持を集める一方、ホキットのレスリングによる一発逆転のロマンを期待するアンダードッグ支持票も根強く存在しています。</p>
@@ -746,6 +871,53 @@ html {
           </table>
         </div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ケイラ・ハリソン</strong> <span class="badge-pct">64% 支持</span></td>
+                  <td><strong>ケイラ・ハリソン</strong> (テイクダウン＆ケージ圧力)</td>
+                  <td><strong>ケイラ・ハリソン</strong> (-192 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>判定 (Decision)</strong> (58% 最多支持)</td>
+                  <td><strong>判定 (Decision)</strong> (グラウンドコントロール)</td>
+                  <td><strong>Harrison by Decision</strong> (+125 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第5ラウンド終了</strong> (フルラウンド 62%)</td>
+                  <td><strong>Over 4.5 Rounds</strong> (5R完走想定)</td>
+                  <td><strong>Fight Goes Distance: Yes</strong> (-135)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (78%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (49-46, 48-47)</td>
+                  <td>Unanimous Decision (-110)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h5>1.4 コミュニティの反応と人間ドラマ</h5>
         <p class="article-p">UFC公式ポッドキャスト『Deep Waters』（クリス・ワイドマン、ダスティン・ポワリエ、ホルヘ・マスヴィダル、ディン・トマスがパネリストとして参加）や『Martial U Breakdown』、YouTubeコンテンツ（『MMA Amplified』の「なぜ他のUFCファイターはハリソンを恐れるのか」）などのメディア・コミュニティにおいて、本カードへの関心は極めて高い。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: UFC公式 Deep Waters &amp; MMA Amplified</span></p>
         <p class="article-p">元チームメイト同士の激突という人間ドラマに加え、ヌネスが「燃え尽き症候群」からの休養を経て「王座奪還後も防衛戦を継続する」と明言した復帰劇に対し、大きな反響が寄せられている。さらに、同階級ではアリス・ペレイラ（Alice Pereira）のようなブラジルの新鋭がランカーを破り「バンタム級はかつてないほど活性化している」と主張するなど、本タイトルマッチの勝者が迎える今後の階級戦線も含めて活発な議論が交わされている。</p>
@@ -825,6 +997,53 @@ html {
           </table>
         </div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>カイオ・ボハーリョ</strong> <span class="badge-pct">68% 支持</span></td>
+                  <td><strong>カイオ・ボハーリョ</strong> (テイクダウン＆制圧)</td>
+                  <td><strong>カイオ・ボハーリョ</strong> (-166 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>判定 (Decision)</strong> (61% 最多支持)</td>
+                  <td><strong>判定 (Decision)</strong> (打撃封じの漬け)</td>
+                  <td><strong>Borralho by Decision</strong> (+110 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第3ラウンド終了</strong> (判定まで 67%)</td>
+                  <td><strong>Over 2.5 Rounds</strong> (3R完走)</td>
+                  <td><strong>Fight Goes Distance: Yes</strong> (-175)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (84%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (30-27完封)</td>
+                  <td>Unanimous Decision (-120)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h4>2.4 コミュニティの反応</h4>
         <p class="article-p">コミュニティでは「ボハーリョがテイクダウンを奪えば堅実にポイントを稼げる」「ベルガルイのリーチと膝蹴りが序盤に炸裂すればアップセットもある」と注目が集まっています。</p>
         <p class="article-p">ミドル級における生き残りを賭けた攻防が完結した後は、より激しい打撃戦と個性がぶつかり合うウェルター級マッチへと舞台は移る。</p>
@@ -903,6 +1122,53 @@ html {
           </table>
         </div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ウロシュ・メディッチ</strong> <span class="badge-pct">56% 支持 (僅差)</span></td>
+                  <td><strong>ウロシュ・メディッチ</strong> (サウスポー強打)</td>
+                  <td><strong>ウロシュ・メディッチ</strong> (-148 微小有利)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>KO/TKO</strong> (58% 最多支持)</td>
+                  <td><strong>KO/TKO</strong> (打撃戦制圧TKO)</td>
+                  <td><strong>Medic by KO/TKO</strong> (+175 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第2ラウンド</strong> (中盤フィニッシュ)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (早期決着)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (-130)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>2-1 スプリット</strong> (48% 接戦予想)</td>
+                  <td>判定時: <strong>2-1 スプリット</strong> (僅差打撃戦)</td>
+                  <td>Split Decision (+350 波乱プロップ)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h4>3.4 コミュニティの反応</h4>
         <p class="article-p">ファンからは「ホランドのグラウンド対応力が鍵を握る」「スタンドの真っ向勝負ならメディッチの火力が勝る可能性がある」とスリリングな打撃戦に期待が寄せられています。</p>
         <p class="article-p">ウェルター級の激闘が幕を閉じた後、いよいよUFC 334メインカードの開幕を告げるハイスピードなフライ級マッチへと意識は集中する。</p>
@@ -980,6 +1246,53 @@ html {
             </tbody>
           </table>
         </div>
+
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ビラル・ハサン</strong> <span class="badge-pct">91% 支持 (圧倒的)</span></td>
+                  <td><strong>ビラル・ハサン</strong> (全方位スピード優位)</td>
+                  <td><strong>ビラル・ハサン</strong> (-1100 大会最大本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>KO/TKO</strong> (48%) / <strong>判定</strong> (36%)</td>
+                  <td><strong>KO/TKO または 完勝判定</strong></td>
+                  <td><strong>Hasan by KO/TKO</strong> (-120 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第1〜2ラウンド</strong> (早期圧倒)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (フィニッシュ推奨)</td>
+                  <td><strong>Round 1 or 2 Finish</strong> (+105)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (92%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (30-26等大差)</td>
+                  <td>Unanimous Decision (判定時圧倒的1番人気)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
         <h4>4.4 コミュニティの反応</h4>
         <p class="article-p">ブックメーカー各社で今大会最大のオッズ差となっており、「ハサンの圧倒的パフォーマンスに期待」「グルレが一矢報いれば歴史的アップセット」と話題を呼んでいます。</p>
@@ -1120,6 +1433,53 @@ html {
 </tr>
 </tbody></table></div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>セザール・アルメイダ</strong> <span class="badge-pct">58% 支持</span></td>
+                  <td><strong>セザール・アルメイダ</strong> (打撃精度優位)</td>
+                  <td><strong>ジョンソン (-140) / アルメイダ (+120)</strong></td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>KO/TKO</strong> (63% 最多支持)</td>
+                  <td><strong>KO/TKO</strong> (膝蹴り・迎撃打撃)</td>
+                  <td><strong>Almeida by KO/TKO</strong> (+220 ドッグ有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第1ラウンド</strong> (急襲KO 52%)</td>
+                  <td><strong>Under 1.5 Rounds</strong> (1R速攻決着)</td>
+                  <td><strong>Under 1.5 Rounds</strong> (+115)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (判定想定極少)</td>
+                  <td>判定に至らず (早期フィニッシュ濃厚)</td>
+                  <td>Fight Goes Distance: No (-150)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h4>コミュニティの反応</h4>
         <p class="article-p">海外のMMAコミュニティでは、「アルメイダのキックボクシング実績は本物だが、ジョンソンのレスリング圧力をショート通知で耐えられるか」「ジョンソンが最初テイクダウンに失敗して打ち合いに応じた瞬間、アルメイダのカウンターが爆発する」といった対立する予想で賑わっている。急遽決定したメインカードならではの不確定要素に対する関心が高い。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: 海外MMAコミュニティ</span></p>
         <p class="article-p" style="color:var(--text-muted);font-style:italic;">プレリムの白熱した攻防を締めくくり、大会の土台を支えるアーリープレリムの幕開けへと読者の視点を誘導する。</p>
@@ -1248,6 +1608,53 @@ html {
 <td>判定に至らず（一本勝ち）</td>
 </tr>
 </tbody></table></div>
+
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ジム・ミラー</strong> <span class="badge-pct">62% 支持</span></td>
+                  <td><strong>ジム・ミラー</strong> (老練リスク管理＆柔術)</td>
+                  <td><strong>マキニー (-160) / ミラー (+135)</strong></td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>一本 (Submission)</strong> (65% 最多支持)</td>
+                  <td><strong>一本勝ち</strong> (リアネイキドチョーク)</td>
+                  <td><strong>Miller by Submission</strong> (+275 最有力ドッグ)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第2ラウンド</strong> (1R凌ぎ後の逆転)</td>
+                  <td><strong>Over 1.5 Rounds</strong> (2Rサブミッション)</td>
+                  <td><strong>Round 2 Finish</strong> (+320)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定に至らず (フィニッシュ率91%予想)</td>
+                  <td>判定に至らず (一本決着濃厚)</td>
+                  <td>Fight Ends Inside Distance (-300)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
         <h4>コミュニティの反応</h4>
         <p class="article-p">Reddit（/r/MMA）では、「マキニーの1Rガス欠リスク対ミラーのゾンビ的耐久力」「マキニーが最初の2分で首を刈れなければ、ミラーがバックを取って一本勝ちする未来しか見えない」といった時間経過に伴う戦術変化を指摘するコメントが目立つ。長年オクタゴンを支えるミラーへの惜しみないリスペクトと、マキニーの極端なファイトスタイルに対するスリル感が掲示板を沸かせている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
@@ -1378,6 +1785,53 @@ html {
 </tr>
 </tbody></table></div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ドリュー・ドーバー</strong> <span class="badge-pct">76% 支持</span></td>
+                  <td><strong>ドリュー・ドーバー</strong> (近接打撃力＆タフネス)</td>
+                  <td><strong>ドリュー・ドーバー</strong> (-185 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>KO/TKO</strong> (74% 最多支持)</td>
+                  <td><strong>KO/TKO</strong> (左ストレート・カウンター)</td>
+                  <td><strong>Dober by KO/TKO</strong> (+110 最有力プロップ)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第2ラウンド</strong> (激闘からの沈下)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (2R中盤想定)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (-145)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定に至らず (流血・打撃フィニッシュ必至)</td>
+                  <td>判定に至らず (KO/TKO推奨)</td>
+                  <td>Fight Goes Distance: No (-220)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h4>コミュニティの反応</h4>
         <p class="article-p">Redditの/r/MMAコミュニティでは、「ドーバーの試合に外れなし。1ラウンドからガードを固めて打ち合う展開になるのは確実」「ダンカンが正面から突っ込めばドーバーのカウンターの餌食になるが、組みを混ぜれば展開は化ける」といった熱い議論が交わされている。バイオレンス溢れるファイトスタイルを持つ両者だけに、早期決着か流血戦かを巡る予想コメントが交錯している。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
         <p class="article-p" style="color:var(--text-muted);font-style:italic;">ライト級の爆発的な打撃戦が残した熱気は、MMA界の生きる伝説が登場する注目の第3試合へと継承される。</p>
@@ -1506,6 +1960,53 @@ html {
 <td>3-0（ユナニマス・デシジョン：29-28, 30-27, 30-27）</td>
 </tr>
 </tbody></table></div>
+
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>スティーブン・トンプソン</strong> <span class="badge-pct">67% 支持</span></td>
+                  <td><strong>スティーブン・トンプソン</strong> (幾何学空手間合い)</td>
+                  <td><strong>スティーブン・トンプソン</strong> (-165 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>判定 (Decision)</strong> (62% 最多支持)</td>
+                  <td><strong>判定 (Decision)</strong> (サークリング完封)</td>
+                  <td><strong>Thompson by Decision</strong> (+135 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第3ラウンド終了</strong> (フルラウンド 69%)</td>
+                  <td><strong>Over 2.5 Rounds</strong> (3R完走)</td>
+                  <td><strong>Fight Goes Distance: Yes</strong> (-165)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (82%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (29-28, 30-27)</td>
+                  <td>Unanimous Decision (-115)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
         <h4>コミュニティの反応</h4>
         <p class="article-p">海外掲示板（Reddit /r/MMA）の戦術スレッドでは、「トンプソンの膝のコンディションと横移動のキレが保たれていれば、ラドケは空を切り続けてガス欠を起こす」「ラドケの踏み込み速度ならトンプソンのサークリングの出端にオーバーハンドを引っ掛けられる」といった具体的な攻防を巡る議論が白熱している。レジェンドへのリスペクトが寄せられる一方で、トンプソンの加齢によるフットワーク低下を懸念する声も少なくない。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA 戦術スレッド</span></p>
@@ -1641,6 +2142,53 @@ html {
 </tr>
 </tbody></table></div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>エヴァン・エルダー</strong> <span class="badge-pct">65% 支持</span></td>
+                  <td><strong>エヴァン・エルダー</strong> (テンポとケージ圧力)</td>
+                  <td><strong>エヴァン・エルダー</strong> (-145 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>判定 (Decision)</strong> (68% 最多支持)</td>
+                  <td><strong>判定 (Decision)</strong> (トータルMMA判定勝ち)</td>
+                  <td><strong>Elder by Decision</strong> (+120 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第3ラウンド終了</strong> (判定まで 73%)</td>
+                  <td><strong>Over 2.5 Rounds</strong> (フルラウンド)</td>
+                  <td><strong>Fight Goes Distance: Yes</strong> (-190)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (79%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (30-27想定)</td>
+                  <td>Unanimous Decision (-125)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h4>コミュニティの反応</h4>
         <p class="article-p">Reddit等の専門掲示板では「プレリムの隠れた名勝負（プロスペクト対決）」「エルダーの運動量は相手にとって悪夢」「サンチェスのカウンターの切れ味なら波乱もあり得る」といった通好みの議論が交わされており、プレリム締めくくりに相応しい盛り上がりを見せている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
         <p class="article-p" style="color:var(--text-muted);font-style:italic;">アーリープレリムからプレリム全8試合を貫いた激闘の熱気は、世界中が固唾をのんで見守るメインカードの開幕へ向けて最高の土台を作り上げました。これにてUFC 334観戦ガイド（全13試合）の完全解説を終了します。</p>
@@ -1770,6 +2318,53 @@ html {
 </tr>
 </tbody></table></div>
 
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>フアン・ディアス</strong> <span class="badge-pct">66% 支持</span></td>
+                  <td><strong>フアン・ディアス</strong> (距離制御とカウンター)</td>
+                  <td><strong>フアン・ディアス</strong> (-160 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>判定 (Decision)</strong> (64% 最多支持)</td>
+                  <td><strong>判定 (Decision)</strong> (突進をいなす判定)</td>
+                  <td><strong>Diaz by Decision</strong> (+115 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第3ラウンド終了</strong> (フルラウンド 71%)</td>
+                  <td><strong>Over 2.5 Rounds</strong></td>
+                  <td><strong>Fight Goes Distance: Yes</strong> (-180)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (81%)</td>
+                  <td>判定時: <strong>3-0 ユナニマス</strong> (29-28, 30-27)</td>
+                  <td>Unanimous Decision (-120)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
         <h4>コミュニティの反応</h4>
         <p class="article-p">海外のファンからは「ヤネスの欠場は残念だが、スクランブル参戦を受けたヘイリの男気にリスペクト」「ヘイリのパワフルな組みが序盤にハマらなければ、ディアスのカウンターの餌食になる」といったリアルな声が投稿されている。ハイスピードな攻防に対する期待が寄せられている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: 海外ファンコミュニティ</span></p>
         <p class="article-p" style="color:var(--text-muted);font-style:italic;">熱戦続くバンタム級から、アーリープレリムの最終戦となる第8試合へとスムーズに視点を移行させる。</p>
@@ -1893,6 +2488,53 @@ html {
 <td>判定に至らず（一本勝ち）</td>
 </tr>
 </tbody></table></div>
+
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ビア・メスキータ</strong> <span class="badge-pct">71% 支持</span></td>
+                  <td><strong>ビア・メスキータ</strong> (世界最高峰オープンガード)</td>
+                  <td><strong>ビア・メスキータ</strong> (-175 本命)</td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>一本 (Submission)</strong> (69% 最多支持)</td>
+                  <td><strong>一本勝ち</strong> (腕十字またはRNC)</td>
+                  <td><strong>Mesquita by Submission</strong> (+140 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第1ラウンド</strong> (序盤極め 58%)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (1〜2R決着)</td>
+                  <td><strong>Under 2.5 Rounds</strong> (-130)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定に至らず (一本勝ち支持率約7割)</td>
+                  <td>判定に至らず (一本決着濃厚)</td>
+                  <td>Fight Ends Inside Distance (+110)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
         <h4>コミュニティの反応</h4>
         <p class="article-p">Reddit等の格闘技コミュニティ（/r/MMA）では、「メスキータのオープンガード引き込みからの逆転腕十字は美しすぎた」「チアソンがリーチで距離を取れるかが勝負だが、グラウンドに持ち込まれたらメスキータの独壇場」「WMMA史上最高峰のBJJ技術を見られるのが楽しみ」と絶賛の声が溢れている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
@@ -2022,6 +2664,53 @@ html {
 <td>2-1（スプリット・デシジョン：29-28, 28-29, 29-28）</td>
 </tr>
 </tbody></table></div>
+
+        <!-- 3大BET予想サイト コンセンサス比較 -->
+        <div class="consensus-card">
+          <div class="consensus-header">
+            <span class="consensus-badge">🎯 3大BET予想サイト コンセンサス比較</span>
+            <span class="consensus-subbadge">読者の投票・ベット指針データ（決着方法・ラウンド・判定種別）</span>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table consensus-table">
+              <thead>
+                <tr>
+                  <th style="width:22%;">予想指標</th>
+                  <th style="width:26%;"><span class="source-tag tapology-tag">Tapology</span><br><span class="source-sub">ファンコミュニティ投票</span></th>
+                  <th style="width:26%;"><span class="source-tag covers-tag">Covers</span><br><span class="source-sub">米専門アナリスト分析</span></th>
+                  <th style="width:26%;"><span class="source-tag dk-tag">DraftKings</span><br><span class="source-sub">プロップ市場最有力傾向</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>① 予想勝者</th>
+                  <td><strong>ジャレッド・ゴードン</strong> <span class="badge-pct">54% 支持 (互角)</span></td>
+                  <td><strong>ジャレッド・ゴードン</strong> (チェイン・レスリング泥沼戦)</td>
+                  <td><strong>ゴードン (-125) / コスタ (+105)</strong></td>
+                </tr>
+                <tr>
+                  <th>② 決着方法 (Method)</th>
+                  <td><strong>判定 (Decision)</strong> (72% 最多支持)</td>
+                  <td><strong>判定 (Decision)</strong> (削り合いのスプリット判定)</td>
+                  <td><strong>Gordon by Decision</strong> (+145 最有力)</td>
+                </tr>
+                <tr>
+                  <th>③ 決着ラウンド (Round)</th>
+                  <td><strong>第3ラウンド終了</strong> (判定まで 79%)</td>
+                  <td><strong>Over 2.5 Rounds</strong> (泥沼フルラウンド)</td>
+                  <td><strong>Fight Goes Distance: Yes</strong> (-240 判定濃厚)</td>
+                </tr>
+                <tr>
+                  <th>④ 判定種別 (Decision)</th>
+                  <td>判定時: <strong>2-1 スプリット</strong> (46% スプリット警戒)</td>
+                  <td>判定時: <strong>2-1 スプリット</strong> (29-28, 28-29, 29-28)</td>
+                  <td>Split Decision (+290 接戦判定想定)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
         <h4>コミュニティの反応</h4>
         <p class="article-p">Redditでは、過酷な試練を乗り越えてきた両者のバックボーンに対する深いリスペクトの声が相次いでいる。「ゴードンの圧倒的なハートとプレッシャーは評価されるべき」「コスタの蹴りの軌道とオープンガードの滑らかさは通好み」といった、技術とストーリー性を兼ね備えた好カードとして注目されている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit r/mma</span></p>

@@ -212,6 +212,153 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
   color: #34d399;
 }
 
+
+/* Floating Action Buttons */
+.floating-nav {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.floating-nav.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.float-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  background: rgba(18, 24, 38, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 15px rgba(220, 38, 38, 0.2);
+  color: #f1f5f9;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.float-btn:hover {
+  background: rgba(30, 41, 59, 0.98);
+  border-color: var(--accent-red);
+  transform: translateY(-2px);
+  color: #fff;
+  box-shadow: 0 12px 28px -4px rgba(220, 38, 38, 0.35);
+}
+.float-icon {
+  font-size: 1.1rem;
+}
+
+/* TOC Search & Filter Controls */
+.toc-controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.search-box-wrapper {
+  position: relative;
+  width: 100%;
+}
+.toc-search-input {
+  width: 100%;
+  padding: 14px 44px 14px 18px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+.toc-search-input:focus {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+  background: rgba(15, 23, 42, 0.95);
+}
+.clear-search-btn {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.clear-search-btn:hover {
+  color: #fff;
+}
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cat-tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cat-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+}
+.cat-tab.active {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.4);
+}
+.toc-item.hidden-by-filter {
+  display: none !important;
+}
+.toc-item.highlight-match {
+  background: rgba(220, 38, 38, 0.18);
+  border-radius: 6px;
+  outline: 1px solid rgba(220, 38, 38, 0.5);
+}
+.no-results-msg {
+  padding: 16px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  display: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+.bout-card, .toc-section {
+  scroll-margin-top: 30px;
+}
+
 /* Footer */
 .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); margin-top: 60px; color: var(--text-muted); font-size: 0.85rem; }
 .footer a { color: var(--accent-blue); text-decoration: none; }
@@ -236,21 +383,35 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </header>
 
-    <!-- TABLE OF CONTENTS -->
+        <!-- TABLE OF CONTENTS -->
     <nav class="toc-section" id="toc">
       <div class="toc-title">
         <span>📑 全対戦カード 目次（Navigation）</span>
       </div>
+      <div class="toc-controls">
+        <div class="search-box-wrapper">
+          <input type="text" id="fighterSearch" class="toc-search-input" placeholder="🔍 選手名・階級で絞り込み（例: ガーヌ, ヌネス, ミドル級）..." autocomplete="off">
+          <button type="button" id="clearSearch" class="clear-search-btn" style="display:none;" title="クリア">✕</button>
+        </div>
+        <div class="category-tabs">
+          <button type="button" class="cat-tab active" data-cat="all">すべて (13)</button>
+          <button type="button" class="cat-tab" data-cat="title">王座戦 (2)</button>
+          <button type="button" class="cat-tab" data-cat="main">メインカード (3)</button>
+          <button type="button" class="cat-tab" data-cat="prelims">プレリム (4)</button>
+          <button type="button" class="cat-tab" data-cat="early">アーリープレリム (4)</button>
+        </div>
+      </div>
+      <div id="noResultsMsg" class="no-results-msg">一致する対戦カードが見つかりません。</div>
       <div class="toc-grid">
-        <div class="toc-group">
-          <div class="toc-group-title">大会概要 ＆ タイトルマッチ</div>
+        <div class="toc-group" data-cat="title">
+          <div class="toc-group-title">大会概要 ＆ タイトルマッチ（上部）</div>
           <ul class="toc-list">
             <li class="toc-item"><a href="#overview"><span>大会概要・カード変更分析</span><span class="toc-badge">Overview</span></a></li>
             <li class="toc-item"><a href="#bout-gane-hokit"><span>シリル・ガーヌ vs. ジョシュ・ホキット</span><span class="toc-badge" style="color:#fde68a;background:rgba(245,158,11,0.2)">ヘビー級王座戦</span></a></li>
             <li class="toc-item"><a href="#bout-harrison-nunes"><span>ケイラ・ハリソン vs. アマンダ・ヌネス</span><span class="toc-badge" style="color:#fde68a;background:rgba(245,158,11,0.2)">女子バンタム級王座戦</span></a></li>
           </ul>
         </div>
-        <div class="toc-group">
+        <div class="toc-group" data-cat="main">
           <div class="toc-group-title">メインカード</div>
           <ul class="toc-list">
             <li class="toc-item"><a href="#bout-borralho-belgaroui"><span>カイオ・ボハーリョ vs. ユースリ・ベルガルイ</span><span class="toc-badge">ミドル級</span></a></li>
@@ -258,22 +419,22 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
             <li class="toc-item"><a href="#bout-hasan-gurule"><span>ビラル・ハサン vs. ルイス・グルレ</span><span class="toc-badge">フライ級</span></a></li>
           </ul>
         </div>
-        <div class="toc-group">
+        <div class="toc-group" data-cat="prelims">
           <div class="toc-group-title">プレリム（全4試合）</div>
           <ul class="toc-list">
-            <li class="toc-item"><a href="#bout-johnson-almeida"><span>ドンテ・ジョンソン vs. セザール・アルメイダ</span><span class="toc-badge">ミドル級 (急遽参戦)</span></a></li>
+            <li class="toc-item"><a href="#bout-johnson-almeida"><span>ドンテ・ジョンソン vs. セザール・アルメイダ</span><span class="toc-badge">プレリムメイン (ミドル級)</span></a></li>
             <li class="toc-item"><a href="#bout-miller-mckinney"><span>ジム・ミラー vs. テランス・マキニー</span><span class="toc-badge">ライト級</span></a></li>
             <li class="toc-item"><a href="#bout-dober-duncan"><span>ドリュー・ドーバー vs. クリス・ダンカン</span><span class="toc-badge">ライト級</span></a></li>
             <li class="toc-item"><a href="#bout-thompson-radtke"><span>スティーブン・トンプソン vs. チャールズ・ラドケ</span><span class="toc-badge">ウェルター級</span></a></li>
           </ul>
         </div>
-        <div class="toc-group">
-          <div class="toc-group-title">アーリープレリム（全4試合）</div>
+        <div class="toc-group" data-cat="early">
+          <div class="toc-group-title">アーリープレリム（全4試合 / 早期開始）</div>
           <ul class="toc-list">
             <li class="toc-item"><a href="#bout-elder-sanchez"><span>エヴァン・エルダー vs. サムエル・サンチェス</span><span class="toc-badge">ライト級</span></a></li>
             <li class="toc-item"><a href="#bout-diaz-alateng"><span>フアン・ディアス vs. アラテン・ヘイリ</span><span class="toc-badge">バンタム級 (急遽参戦)</span></a></li>
             <li class="toc-item"><a href="#bout-chiasson-mesquita"><span>メイシー・チアソン vs. ビア・メスキータ</span><span class="toc-badge">女子バンタム級</span></a></li>
-            <li class="toc-item"><a href="#bout-gordon-costa"><span>ジャレッド・ゴードン vs. メルキザエル・コスタ</span><span class="toc-badge">ライト級</span></a></li>
+            <li class="toc-item"><a href="#bout-gordon-costa"><span>ジャレッド・ゴードン vs. メルキザエル・コスタ</span><span class="toc-badge" style="color:#93c5fd;background:rgba(59,130,246,0.2)">大会第1試合 (最下部)</span></a></li>
           </ul>
         </div>
       </div>
@@ -475,7 +636,6 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
-
     <!-- SECTION 2: コ・メインイベント & メインカード -->
     <div class="section-banner">
       <div class="section-banner-title">🔥 コ・メインイベント ＆ メインカード</div>
@@ -483,6 +643,7 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
     </div>
 
     <!-- BOUT: HARRISON VS NUNES -->
+
     <article id="bout-harrison-nunes" class="bout-card">
       <div class="bout-header">
         <span class="bout-order-badge" style="color:var(--accent-gold);">CO-MAIN EVENT // 女子バンタム級タイトルマッチ</span>
@@ -592,8 +753,6 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
-
-    <!-- BOUT: BORRALHO VS BELGAROUI -->
     <article id="bout-borralho-belgaroui" class="bout-card">
       <div class="bout-header">
         <span class="bout-order-badge">MAIN CARD // 第3試合</span>
@@ -672,8 +831,6 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
-
-    <!-- BOUT: MEDIC VS HOLLAND -->
     <article id="bout-medic-holland" class="bout-card">
       <div class="bout-header">
         <span class="bout-order-badge">MAIN CARD // 第2試合</span>
@@ -752,8 +909,6 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
-
-    <!-- BOUT: HASAN VS GURULE -->
     <article id="bout-hasan-gurule" class="bout-card">
       <div class="bout-header">
         <span class="bout-order-badge">MAIN CARD // 第1試合</span>
@@ -837,407 +992,11 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
-
     <div class="section-banner">
       <div class="section-banner-title">🥊 プレリム（Prelims）全4試合</div>
       <div class="section-banner-meta">UFC Fight Pass / U-NEXT ライブ配信</div>
     </div>
 
-
-    <!-- BOUT: bout-thompson-radtke -->
-    <article id="bout-thompson-radtke" class="bout-card">
-      <div class="bout-header">
-        <span class="bout-order-badge">プレリム第1試合</span>
-        <span class="bout-weight-badge">ウェルター級（-77.1kg）</span>
-      </div>
-      <h2 class="bout-title">スティーブン・トンプソン vs. チャールズ・ラドケ</h2>
-      <p class="article-p">ウェルター級プレリムのオープニングを飾る本カードは、長年にわたり伝統派空手の美学をオクタゴン上で体現し続けてきた「ワンダーボーイ」スティーブン・トンプソンと、インサイドでの泥臭い削り合いと近接打撃で圧力をかけるチャールズ・ラドケによる、象徴的な対極スタイル＆世代交錯マッチである。ランカー前線での生存権を維持したいトンプソンにとっても、トップ15の門番を打ち倒して一気に階級のスターダムへ躍り出たいラドケにとっても、プレリム筆頭試合という注目枠で己の戦術的優位性を誇示することは、ウェルター級の戦力図を再定義する上で極めて高い価値を持つ。</p>
-
-      <div class="analysis-subblock">
-        <h4>選手プロフィール＆データ</h4>
-        <p class="article-p">スティーブン・トンプソンは、幼少期より実父の手ほどきで伝統派空手とキックボクシングの英才教育を受け、キックボクシングで50戦以上無敗という金字塔を打ち立ててMMAへ転身した。度重なる両膝の手術や厳しいリハビリを乗り越え、40代を迎えてなおトップレベルの動体視力とステップワークを維持する「伝統派打撃の至宝」である。対するチャールズ・ラドケは、ローカル団体での過酷な下積みを経てファイトスタイルを研ぎ澄まし、相手の被弾を恐れずインサイドへ侵入する圧倒的なタフネスと強力なショートフックを武器にUFCの階段を駆け上がってきた武闘派ストライカーだ。</p>
-
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>ステータス / 選手名</th>
-<th>スティーブン・トンプソン</th>
-<th>チャールズ・ラドケ</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>MMA公式戦績</th>
-<td>17勝9敗1分 [ESPN公式]</td>
-<td>12勝5敗0分 [ESPN公式]</td>
-</tr>
-<tr>
-<th>バックボーン</th>
-<td>伝統派空手 / キックボクシング</td>
-<td>ボクシング / フリースタイルレスリング</td>
-</tr>
-<tr>
-<th>身長 / リーチ</th>
-<td>183cm / 191cm</td>
-<td>178cm / 183cm</td>
-</tr>
-<tr>
-<th>ファイトスタイル</th>
-<td>遠距離変幻自在ストライカー</td>
-<td>インサイド・プレッシャーボクサー</td>
-</tr>
-</tbody></table></div>
-
-        <div class="fighter-comparison-grid">
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2615077.png&w=350&h=254" alt="スティーブン・トンプソン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/2615077.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>スティーブン・トンプソン</h3>
-          <div class="fighter-name-en">Stephen Thompson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"Wonderboy"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 17勝9敗1分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/2615077" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Stephen Thompson &rarr;</a>
-      </div>
-    </div>
-
-          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4416297.png&w=350&h=254" alt="チャールズ・ラドケ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4416297.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>チャールズ・ラドケ</h3>
-          <div class="fighter-name-en">Charles Radtke <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"Chuck Buffalo"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 12勝5敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/4416297" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Charles Radtke &rarr;</a>
-      </div>
-    </div>
-
-        </div>
-
-        <h4>見どころと戦術分析</h4>
-        <p class="article-p">この試合のメカニズムを解体するキーは、トンプソンが保持する「アウトサイドでの幾何学的間合い支配」に対し、ラドケがいかに被弾リスクを許容してインサイドへ踏み込めるかという幾何学と距離の相克にある。</p>
-<p class="article-p">トンプソンはワイドスタンスから繰り出す左右のスイッチ、前足でのサイドキック、そして相手の踏み込みに合わせて対角線上に切るステップワークで間合いを完全統御する。ラドケが勝利を手繰り寄せるための絶対条件は、単進的な追撃を避け、フェイントを交えたケージカットでトンプソンを金網背後へと追い詰め、頭部を相手の胸元に密着させた近距離フック戦に引きずり込むことだ。</p>
-
-        <div class="insight-box">
-          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
-          <p class="article-p" style="margin-bottom:0;">トンプソンがアウトサイドで対角線のステップワークを維持し、ラドケの突進をサークリングで無効化し続けた場合、40代にしてウェルター級トップ15前線の絶対的門番としての技術的優位性を再証明することになる。逆にラドケが被弾覚悟でインサイドへ侵入し、ショートフックでトンプソンの顎を撃ち抜いて沈めれば、泥臭い叩き上げスタイルの価値を階級全体に知らしめる構造的地殻変動を引き起こす。</p>
-        </div>
-
-        <h4>詳細予想と最新オッズ</h4>
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>最新マネーラインオッズ</th>
-<th>スティーブン・トンプソン (-165) vs. チャールズ・ラドケ (+140)</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>勝利予想</th>
-<td>スティーブン・トンプソン</td>
-</tr>
-<tr>
-<th>決着方法</th>
-<td>判定</td>
-</tr>
-<tr>
-<th>達成ラウンド</th>
-<td>第3ラウンド終了</td>
-</tr>
-<tr>
-<th>判定詳細</th>
-<td>3-0（ユナニマス・デシジョン：29-28, 30-27, 30-27）</td>
-</tr>
-</tbody></table></div>
-
-        <h4>コミュニティの反応</h4>
-        <p class="article-p">海外掲示板（Reddit /r/MMA）の戦術スレッドでは、「トンプソンの膝のコンディションと横移動のキレが保たれていれば、ラドケは空を切り続けてガス欠を起こす」「ラドケの踏み込み速度ならトンプソンのサークリングの出端にオーバーハンドを引っ掛けられる」といった具体的な攻防を巡る議論が白熱している。レジェンドへのリスペクトが寄せられる一方で、トンプソンの加齢によるフットワーク低下を懸念する声も少なくない。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA 戦術スレッド</span></p>
-        <p class="article-p" style="color:var(--text-muted);font-style:italic;">トンプソンの華麗なステップがプレリムのボルテージを一気に跳ね上げた熱量は、そのまま激戦必至のライト級バウトへと引き継がれる。</p>
-      </div>
-    </article>
-
-
-    <!-- BOUT: bout-dober-duncan -->
-    <article id="bout-dober-duncan" class="bout-card">
-      <div class="bout-header">
-        <span class="bout-order-badge">プレリム第2試合</span>
-        <span class="bout-weight-badge">ライト級（-70.3kg）</span>
-      </div>
-      <h2 class="bout-title">ドリュー・ドーバー vs. クリス・ダンカン</h2>
-      <p class="article-p">激戦区ライト級において屈指の破壊力と打撃耐性を誇るドリュー・ドーバーと、アグレッシブなプレッシャーを前面に押し出すスコットランドの激闘派クリス・ダンカンによる一戦は、全カードを通じても「ファイト・オブ・ザ・ナイト」獲得の最右翼に位置づけられる。常にフィニッシュを狙い続ける両者の激突は、ランキング前線への生き残りとボーナス獲得を賭けた直接対決であり、ライト級の層の厚さを象徴する試練の一戦となる。</p>
-
-      <div class="analysis-subblock">
-        <h4>選手プロフィール＆データ</h4>
-        <p class="article-p">ドリュー・ドーバーは、キャリア初期の連敗や度重なるファイトマネーの困窮といった過酷な試練を、自慢のメンタルとハードワークで克服してきたライト級屈指のハードパンチャーだ。幾多の流血戦を潜り抜け、オクタゴン内で無数のファイトボーナスを獲得してきた名物ファイターである。対するクリス・ダンカンは、スコットランドの厳しい格闘技環境から叩き上がり、ノンストップの前進と打ち合いを好む情熱的なストライカーで、アグレッシブな姿勢を武器にUFCライト級戦線で着実にキャリアを積み上げてきた。</p>
-
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>ステータス / 選手名</th>
-<th>ドリュー・ドーバー</th>
-<th>クリス・ダンカン</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>MMA公式戦績</th>
-<td>29勝15敗0分 [ESPN公式]</td>
-<td>15勝3敗0分 [ESPN公式]</td>
-</tr>
-<tr>
-<th>バックボーン</th>
-<td>ムエタイ / ボクシング</td>
-<td>キックボクシング / フリースタイルレスリング</td>
-</tr>
-<tr>
-<th>身長 / リーチ</th>
-<td>173cm / 178cm</td>
-<td>178cm / 180cm</td>
-</tr>
-<tr>
-<th>ファイトスタイル</th>
-<td>サウスポー・パワーパンチャー</td>
-<td>前進型アグレッシブストライカー</td>
-</tr>
-</tbody></table></div>
-
-        <div class="fighter-comparison-grid">
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2951202.png&w=350&h=254" alt="ドリュー・ドーバー" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/2951202.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>ドリュー・ドーバー</h3>
-          <div class="fighter-name-en">Drew Dober <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          
-          <div class="fighter-record-badge">🏆 MMA戦績: 29勝15敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/2951202" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Drew Dober &rarr;</a>
-      </div>
-    </div>
-
-          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4867356.png&w=350&h=254" alt="クリス・ダンカン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4867356.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>クリス・ダンカン</h3>
-          <div class="fighter-name-en">Chris Duncan <img src="https://a.espncdn.com/i/teamlogos/countries/500/sct.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"The Problem"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 15勝3敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/4867356" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Chris Duncan &rarr;</a>
-      </div>
-    </div>
-
-        </div>
-
-        <h4>見どころと戦術分析</h4>
-        <p class="article-p">この試合の戦術的本質は、危険領域での近接打撃戦において「どちらの構造的フレームと打撃精度が相手の耐久力を突破するか」という純粋な破壊力対決にある。</p>
-<p class="article-p">ドーバーの最大の強みは、サウスポー構えから放たれるコンパクトかつ破壊的な左ストレートと、強固なガードで相手の攻撃を吸収する顎のタフネスだ。ダンカンが直線的なプレッシャーで前進してくる局面こそ、ドーバーのショートカウンターが最も火を吹く瞬間となる。ダンカンとしては、頭部を一直線に晒すアプローチを避け、レベルチェンジの緩急を交えてダブルレッグの姿勢からチェイン・レスリングへ移行し、ドーバーの足止めてケージ背後に固定する戦術が求められる。</p>
-
-        <div class="insight-box">
-          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
-          <p class="article-p" style="margin-bottom:0;">ドーバーがポケット（近距離）での攻防を支配し、コンパクトな左フックでダンカンを沈めた場合、ライト級トップ15圏内を脅かす若手に対する「最凶の壁」としての価値を誇示することになる。逆にダンカンがドーバーのカウンターを打撃の打ち分けとチェイン・レスリングで潰し、打撃戦で打ち勝てば、スコットランド発の新鋭としてライト級上位戦線へ浮上する足がかりを築くことになる。</p>
-        </div>
-
-        <h4>詳細予想と最新オッズ</h4>
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>最新マネーラインオッズ</th>
-<th>ドリュー・ドーバー (-185) vs. クリス・ダンカン (+155)</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>勝利予想</th>
-<td>ドリュー・ドーバー</td>
-</tr>
-<tr>
-<th>決着方法</th>
-<td>KO/TKO</td>
-</tr>
-<tr>
-<th>達成ラウンド</th>
-<td>第2ラウンド（2分35秒）</td>
-</tr>
-<tr>
-<th>判定詳細</th>
-<td>判定に至らず（TKO：左ストレートからのパウンド）</td>
-</tr>
-</tbody></table></div>
-
-        <h4>コミュニティの反応</h4>
-        <p class="article-p">Redditの/r/MMAコミュニティでは、「ドーバーの試合に外れなし。1ラウンドからガードを固めて打ち合う展開になるのは確実」「ダンカンが正面から突っ込めばドーバーのカウンターの餌食になるが、組みを混ぜれば展開は化ける」といった熱い議論が交わされている。バイオレンス溢れるファイトスタイルを持つ両者だけに、早期決着か流血戦かを巡る予想コメントが交錯している。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
-        <p class="article-p" style="color:var(--text-muted);font-style:italic;">ライト級の爆発的な打撃戦が残した熱気は、MMA界の生きる伝説が登場する注目の第3試合へと継承される。</p>
-      </div>
-    </article>
-
-
-    <!-- BOUT: bout-miller-mckinney -->
-    <article id="bout-miller-mckinney" class="bout-card">
-      <div class="bout-header">
-        <span class="bout-order-badge">プレリム第3試合</span>
-        <span class="bout-weight-badge">ライト級（-70.3kg）</span>
-      </div>
-      <h2 class="bout-title">ジム・ミラー vs. テランス・マキニー</h2>
-      <p class="article-p">UFC史上最多出場記録を塗り替え続ける生きる伝説ジム・ミラーと、1ラウンドにおける電光石火のフィニッシュ率を誇るテランス・マキニーによるライト級戦は、「老練なリスク管理とグラップリング」対「爆発的スプリント力」というタイムラインのコントラストが明確な戦いである。ベテランが経験値で若手の暴風雨を収束させるか、新鋭が一瞬の爆発力で歴史を塗り替えるか、階級内における新旧交錯の戦略的試練となる。</p>
-
-      <div class="analysis-subblock">
-        <h4>選手プロフィール＆データ</h4>
-        <p class="article-p">ジム・ミラーは、難病ライム病との長年にわたる闘病生活や度重なる身体的試練を乗り越え、UFCのオクタゴンに立ち続けてきた絶対的ベテランだ。ブラジリアン柔術黒帯の寝技技術とタフな打撃で数々の新星を葬ってきた。対するテランス・マキニーは、過酷な生い立ちと人生のどん底から格闘技によって這い上がり、UFC史上最速クラスのKOおよび一本勝ち記録を次々と打ち立ててきた超攻撃型ストライカーだ。</p>
-
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>ステータス / 選手名</th>
-<th>ジム・ミラー</th>
-<th>テランス・マキニー</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>MMA公式戦績</th>
-<td>39勝19敗0分 [ESPN公式]</td>
-<td>18勝9敗0分 [ESPN公式]</td>
-</tr>
-<tr>
-<th>バックボーン</th>
-<td>ブラジリアン柔術 / レスリング</td>
-<td>レスリング / キックボクシング</td>
-</tr>
-<tr>
-<th>身長 / リーチ</th>
-<td>173cm / 180cm</td>
-<td>178cm / 185cm</td>
-</tr>
-<tr>
-<th>ファイトスタイル</th>
-<td>老練カウンター・グラップラー</td>
-<td>1R爆発型フィニッシャー</td>
-</tr>
-</tbody></table></div>
-
-        <div class="fighter-comparison-grid">
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2335718.png&w=350&h=254" alt="ジム・ミラー" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/2335718.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>ジム・ミラー</h3>
-          <div class="fighter-name-en">Jim Miller <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"A-10"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 39勝19敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/2335718" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Jim Miller &rarr;</a>
-      </div>
-    </div>
-
-          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4425604.png&w=350&h=254" alt="テランス・マキニー" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4425604.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>テランス・マキニー</h3>
-          <div class="fighter-name-en">Terrance McKinney <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"T.Wrecks"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 18勝9敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/4425604" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Terrance McKinney &rarr;</a>
-      </div>
-    </div>
-
-        </div>
-
-        <h4>見どころと戦術分析</h4>
-        <p class="article-p">この試合の戦術的タイムラインにおける核心は、「開始90秒間のマキニーの電撃攻撃をミラーがいかに無力化するか」に集約される。</p>
-<p class="article-p">マキニーはゴングと同時に間合いを詰め、飛躍力を生かした飛び膝蹴りや直線のワンツー、爆発的なダブルレッグで一気にフィニッシュを狙う。マキニーは開始90秒間に自身のエネルギー消費の60%以上を注ぎ込む傾向がある。対するミラーは、強固なフェンス背負いのディフェンスと、首を立てるフレームディフェンスによってこのファーストウェーブを無力化できるかが勝負の分かれ目となる。初動の嵐を耐え抜き、試合が第2ラウンドへ突入した瞬間、マキニーの酸素消費とスタミナ低下に伴い、試合の主導権は不可逆的にミラーの柔術沼へと移行する。</p>
-
-        <div class="insight-box">
-          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
-          <p class="article-p" style="margin-bottom:0;">ミラーがマキニーの初期衝動を冷静にいなし、第2ラウンドにギロチンチョークやリアネイキドチョークで逆転一本勝ちを収めた場合、記録更新のみならず「若手フィニッシャー無効化の戦術教科書」としてその存在感を改めて示せる。マキニーがミラーの老練なディフェンスを突き破って1RKOを奪えば、単なる一発屋からの脱却とトップコンテンダー陣への足がかりを得ることになる。</p>
-        </div>
-
-        <h4>詳細予想と最新オッズ</h4>
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>最新マネーラインオッズ</th>
-<th>ジム・ミラー (+135) vs. テランス・マキニー (-160)</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>勝利予想</th>
-<td>ジム・ミラー</td>
-</tr>
-<tr>
-<th>決着方法</th>
-<td>一本（サブミッション：リアネイキドチョーク）</td>
-</tr>
-<tr>
-<th>達成ラウンド</th>
-<td>第2ラウンド（3分40秒）</td>
-</tr>
-<tr>
-<th>判定詳細</th>
-<td>判定に至らず（一本勝ち）</td>
-</tr>
-</tbody></table></div>
-
-        <h4>コミュニティの反応</h4>
-        <p class="article-p">Reddit（/r/MMA）では、「マキニーの1Rガス欠リスク対ミラーのゾンビ的耐久力」「マキニーが最初の2分で首を刈れなければ、ミラーがバックを取って一本勝ちする未来しか見えない」といった時間経過に伴う戦術変化を指摘するコメントが目立つ。長年オクタゴンを支えるミラーへの惜しみないリスペクトと、マキニーの極端なファイトスタイルに対するスリル感が掲示板を沸かせている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
-        <p class="article-p" style="color:var(--text-muted);font-style:italic;">ベテランの老練な意地が光ったライト級戦から、急遽参戦が決定したプレリムメインのミドル級戦への展開を予告する。</p>
-      </div>
-    </article>
-
-
-    <!-- BOUT: bout-johnson-almeida -->
     <article id="bout-johnson-almeida" class="bout-card">
       <div class="bout-header">
         <span class="bout-order-badge">プレリム第4試合（プレリムメイン）</span>
@@ -1367,52 +1126,44 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
-
-    <div class="section-banner">
-      <div class="section-banner-title">⚡ アーリープレリム（Early Prelims）全4試合</div>
-      <div class="section-banner-meta">UFC Fight Pass / U-NEXT ライブ配信</div>
-    </div>
-
-
-    <!-- BOUT: bout-gordon-costa -->
-    <article id="bout-gordon-costa" class="bout-card">
+    <article id="bout-miller-mckinney" class="bout-card">
       <div class="bout-header">
-        <span class="bout-order-badge">アーリープレリム第1試合</span>
+        <span class="bout-order-badge">プレリム第3試合</span>
         <span class="bout-weight-badge">ライト級（-70.3kg）</span>
       </div>
-      <h2 class="bout-title">ジャレッド・ゴードン vs. メルキザエル・コスタ</h2>
-      <p class="article-p">アーリープレリムのオープニングを飾るライト級戦は、壮絶な人生の苦難を乗り越えオクタゴンへ立ち続けるベテランのジャレッド・ゴードンと、変幻自在のスタイルと技術を持つブラジルの巧者メルキザエル・コスタによる一戦である。イベント全体のボルテージと流れを決定づけるオープニングマッチとして、両者の持つ技術的深みと泥臭い意地が激突する重要な役割を担う。</p>
+      <h2 class="bout-title">ジム・ミラー vs. テランス・マキニー</h2>
+      <p class="article-p">UFC史上最多出場記録を塗り替え続ける生きる伝説ジム・ミラーと、1ラウンドにおける電光石火のフィニッシュ率を誇るテランス・マキニーによるライト級戦は、「老練なリスク管理とグラップリング」対「爆発的スプリント力」というタイムラインのコントラストが明確な戦いである。ベテランが経験値で若手の暴風雨を収束させるか、新鋭が一瞬の爆発力で歴史を塗り替えるか、階級内における新旧交錯の戦略的試練となる。</p>
 
       <div class="analysis-subblock">
         <h4>選手プロフィール＆データ</h4>
-        <p class="article-p">ジャレッド・ゴードンは、過去に深刻な薬物依存症を経験し、オーバードーズによって臨死体験を彷徨うほどの壮絶な逆境を乗り越えてMMAの頂点へと辿り着いた強い精神力を誇るファイターだ。対するメルキザエル・コスタは、皮膚の色素が抜ける難病「白斑症（Vitiligo）」に対する周りの偏見を克服し、カポエイラやブラジリアン柔術をベースに独自のスタイルを切り開いてきたブラジル出身の精鋭である。</p>
+        <p class="article-p">ジム・ミラーは、難病ライム病との長年にわたる闘病生活や度重なる身体的試練を乗り越え、UFCのオクタゴンに立ち続けてきた絶対的ベテランだ。ブラジリアン柔術黒帯の寝技技術とタフな打撃で数々の新星を葬ってきた。対するテランス・マキニーは、過酷な生い立ちと人生のどん底から格闘技によって這い上がり、UFC史上最速クラスのKOおよび一本勝ち記録を次々と打ち立ててきた超攻撃型ストライカーだ。</p>
 
         <div class="table-wrapper"><table class="data-table">
 <thead><tr>
 <th>ステータス / 選手名</th>
-<th>ジャレッド・ゴードン</th>
-<th>メルキザエル・コスタ</th>
+<th>ジム・ミラー</th>
+<th>テランス・マキニー</th>
 </tr></thead>
 <tbody>
 <tr>
 <th>MMA公式戦績</th>
-<td>21勝9敗0分 [ESPN公式]</td>
-<td>26勝8敗0分 [ESPN公式]</td>
+<td>39勝19敗0分 [ESPN公式]</td>
+<td>18勝9敗0分 [ESPN公式]</td>
 </tr>
 <tr>
 <th>バックボーン</th>
-<td>レスリング / ボクシング</td>
-<td>カポエイラ / ブラジリアン柔術</td>
+<td>ブラジリアン柔術 / レスリング</td>
+<td>レスリング / キックボクシング</td>
 </tr>
 <tr>
 <th>身長 / リーチ</th>
-<td>175cm / 173cm</td>
-<td>180cm / 180cm</td>
+<td>173cm / 180cm</td>
+<td>178cm / 185cm</td>
 </tr>
 <tr>
 <th>ファイトスタイル</th>
-<td>泥臭いチェイン・レスラー</td>
-<td>変幻自在トリッキー・ストライカー</td>
+<td>老練カウンター・グラップラー</td>
+<td>1R爆発型フィニッシャー</td>
 </tr>
 </tbody></table></div>
 
@@ -1421,13 +1172,13 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
     <div class="fighter-card">
       <div class="fighter-header">
         <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3894823.png&w=350&h=254" alt="ジャレッド・ゴードン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/3894823.png';">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2335718.png&w=350&h=254" alt="ジム・ミラー" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/2335718.png';">
         </div>
         <div class="fighter-name-box">
-          <h3>ジャレッド・ゴードン</h3>
-          <div class="fighter-name-en">Jared Gordon <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"Flash"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 21勝9敗0分</div>
+          <h3>ジム・ミラー</h3>
+          <div class="fighter-name-en">Jim Miller <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"A-10"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 39勝19敗0分</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1435,7 +1186,7 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
       <div class="fighter-links">
         
-        <a href="https://www.espn.com/mma/fighter/_/id/3894823" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Jared Gordon &rarr;</a>
+        <a href="https://www.espn.com/mma/fighter/_/id/2335718" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Jim Miller &rarr;</a>
       </div>
     </div>
 
@@ -1444,13 +1195,13 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
     <div class="fighter-card">
       <div class="fighter-header">
         <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4425763.png&w=350&h=254" alt="メルキザエル・コスタ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4425763.png';">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4425604.png&w=350&h=254" alt="テランス・マキニー" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4425604.png';">
         </div>
         <div class="fighter-name-box">
-          <h3>メルキザエル・コスタ</h3>
-          <div class="fighter-name-en">Melquizael Costa <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"Melk Cauteloso"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 26勝8敗0分</div>
+          <h3>テランス・マキニー</h3>
+          <div class="fighter-name-en">Terrance McKinney <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"T.Wrecks"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 18勝9敗0分</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1458,157 +1209,31 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
       <div class="fighter-links">
         
-        <a href="https://www.espn.com/mma/fighter/_/id/4425763" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Melquizael Costa &rarr;</a>
+        <a href="https://www.espn.com/mma/fighter/_/id/4425604" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Terrance McKinney &rarr;</a>
       </div>
     </div>
 
         </div>
 
         <h4>見どころと戦術分析</h4>
-        <p class="article-p">この試合は、ゴードンの「頭部を押し付けて削る泥臭いチェイン・レスリング」と、コスタの「遠距離からのトリッキーなキック＆オープンガードからのサブミッション」が交錯する攻防となる。</p>
-<p class="article-p">ゴードンは体格・リーチ差を無効化するため、低く入るプレッシャーボクシングからケージ際での押し込み、相手の足を掬うテイクダウンでコスタの蹴り技を封印しにかかる。コスタとしては、変幻自在のステップとミドルキックでゴードンの進入角度を制限し、組み付かれた際も柔術のガードワークから三角絞めやギロチンチョークを狙う戦術で対抗する。</p>
+        <p class="article-p">この試合の戦術的タイムラインにおける核心は、「開始90秒間のマキニーの電撃攻撃をミラーがいかに無力化するか」に集約される。</p>
+<p class="article-p">マキニーはゴングと同時に間合いを詰め、飛躍力を生かした飛び膝蹴りや直線のワンツー、爆発的なダブルレッグで一気にフィニッシュを狙う。マキニーは開始90秒間に自身のエネルギー消費の60%以上を注ぎ込む傾向がある。対するミラーは、強固なフェンス背負いのディフェンスと、首を立てるフレームディフェンスによってこのファーストウェーブを無力化できるかが勝負の分かれ目となる。初動の嵐を耐え抜き、試合が第2ラウンドへ突入した瞬間、マキニーの酸素消費とスタミナ低下に伴い、試合の主導権は不可逆的にミラーの柔術沼へと移行する。</p>
 
         <div class="insight-box">
           <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
-          <p class="article-p" style="margin-bottom:0;">ゴードンがスタミナとレスリング圧力でコスタを泥沼のグラウンド展開に引きずり込めば、ライト級のベテランとしてのタフネスと粘り勝ちの強みを証明できる。コスタがゴードンの前進を華麗にいなし、遠距離打撃とガードワークで翻弄して勝利を収めれば、テクニカルな新鋭としての存在感を高めることになる。</p>
+          <p class="article-p" style="margin-bottom:0;">ミラーがマキニーの初期衝動を冷静にいなし、第2ラウンドにギロチンチョークやリアネイキドチョークで逆転一本勝ちを収めた場合、記録更新のみならず「若手フィニッシャー無効化の戦術教科書」としてその存在感を改めて示せる。マキニーがミラーの老練なディフェンスを突き破って1RKOを奪えば、単なる一発屋からの脱却とトップコンテンダー陣への足がかりを得ることになる。</p>
         </div>
 
         <h4>詳細予想と最新オッズ</h4>
         <div class="table-wrapper"><table class="data-table">
 <thead><tr>
 <th>最新マネーラインオッズ</th>
-<th>ジャレッド・ゴードン (-125) vs. メルキザエル・コスタ (+105)</th>
+<th>ジム・ミラー (+135) vs. テランス・マキニー (-160)</th>
 </tr></thead>
 <tbody>
 <tr>
 <th>勝利予想</th>
-<td>ジャレッド・ゴードン</td>
-</tr>
-<tr>
-<th>決着方法</th>
-<td>判定</td>
-</tr>
-<tr>
-<th>達成ラウンド</th>
-<td>第3ラウンド終了</td>
-</tr>
-<tr>
-<th>判定詳細</th>
-<td>2-1（スプリット・デシジョン：29-28, 28-29, 29-28）</td>
-</tr>
-</tbody></table></div>
-
-        <h4>コミュニティの反応</h4>
-        <p class="article-p">Redditでは、過酷な試練を乗り越えてきた両者のバックボーンに対する深いリスペクトの声が相次いでいる。「ゴードンの圧倒的なハートとプレッシャーは評価されるべき」「コスタの蹴りの軌道とオープンガードの滑らかさは通好み」といった、技術とストーリー性を兼ね備えた好カードとして注目されている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit r/mma</span></p>
-        <p class="article-p" style="color:var(--text-muted);font-style:italic;">ライト級の泥臭くもハイレベルな技術戦から、女子グラップリング界の最高峰レジェンドが登場する注目の第6試合（アーリープレリム第2試合）への接続文を配置する。</p>
-      </div>
-    </article>
-
-
-    <!-- BOUT: bout-chiasson-mesquita -->
-    <article id="bout-chiasson-mesquita" class="bout-card">
-      <div class="bout-header">
-        <span class="bout-order-badge">アーリープレリム第2試合</span>
-        <span class="bout-weight-badge">女子バンタム級（-61.2kg）</span>
-      </div>
-      <h2 class="bout-title">メイシー・チアソン vs. ビア・メスキータ</h2>
-      <p class="article-p">女子バンタム級戦線において絶対に見逃せない本カードは、IBJJF世界選手権を10度制覇し、ギネス世界記録認定および殿堂入り（Hall of Fame）を果たしたブラジリアン柔術界のレジェンド、ビア・メスキータと、大型ストライカーとしてランカー上位に君臨するメイシー・チアソンによる屈指のスタイル対決である。メスキータがMMAの舞台でもその圧倒的なグラウンド技術を証明しトップ10入りへ名乗りを上げるのか、チアソンが体格アドバンテージと打撃で立ち塞がるのか、階級の未来を占う試練の一戦だ。</p>
-
-      <div class="analysis-subblock">
-        <h4>選手プロフィール＆データ</h4>
-        <p class="article-p">ビア・メスキータ（Beatriz de Oliveira Mesquita）は1991年ブラジル・サクアレーマ生まれ。5歳で柔術を始め、名門グレイシー・ウマイタでレティシア・リベイロの指導を受け黒帯を取得。IBJJF世界選手権黒帯部門で10度の優勝（8度の階級別、2度の無差別級）を果たしギネス世界記録に認定され、2022年にHall of Fame入りした。2023年にAmerican Top Team（ATT）へ加入してMMA本格転向後、プロデビュー戦（Spaten Fight Nightでの1R一本勝ち）、LFAでの4連勝およびLFA女子バンタム級王座獲得（シエラ・ディンウッディ戦2R TKO）を経てUFCへ参戦。UFCデビュー戦のイリーナ・アレクセエワ戦（2R RNCでPerformance of the Night獲得）、第2戦のモンセラート・レンドン戦（1R RNC）、そして直近のUFC Vegas 119におけるメリッサ・マリンズ戦と、オクタゴン3戦全てで一本勝ちを収め通算8勝0敗と底知れぬ強さを見せている。対するメイシー・チアソンは、The Ultimate Fighter覇者であり、長身とリーチを生かしたパワフルな打撃で上位を維持してきた実力者である。</p>
-
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>ステータス / 選手名</th>
-<th>メイシー・チアソン</th>
-<th>ビア・メスキータ</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>MMA公式戦績</th>
-<td>11勝6敗0分 [ESPN公式]</td>
-<td>8勝0敗0分（無敗） [ESPN公式]</td>
-</tr>
-<tr>
-<th>バックボーン</th>
-<td>ムエタイ / 総合格闘技</td>
-<td>ブラジリアン柔術（10度世界王者・ギネス記録）</td>
-</tr>
-<tr>
-<th>身長 / リーチ</th>
-<td>180cm / 183cm</td>
-<td>165cm / 168cm</td>
-</tr>
-</tbody></table></div>
-
-        <div class="fighter-comparison-grid">
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4334306.png&w=350&h=254" alt="メイシー・チアソン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4334306.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>メイシー・チアソン</h3>
-          <div class="fighter-name-en">Macy Chiasson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
-          
-          <div class="fighter-record-badge">🏆 MMA戦績: 11勝6敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/4334306" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Macy Chiasson &rarr;</a>
-      </div>
-    </div>
-
-          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
-          
-    <div class="fighter-card">
-      <div class="fighter-header">
-        <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/5310274.png&w=350&h=254" alt="ビア・メスキータ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/5310274.png';">
-        </div>
-        <div class="fighter-name-box">
-          <h3>ビア・メスキータ</h3>
-          <div class="fighter-name-en">Bia Mesquita <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"The Lady GOAT"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 8勝0敗0分</div>
-        </div>
-      </div>
-      <div class="fighter-bio">
-        
-      </div>
-      <div class="fighter-links">
-        
-        <a href="https://www.espn.com/mma/fighter/_/id/5310274" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Bia Mesquita &rarr;</a>
-      </div>
-    </div>
-
-        </div>
-
-        <h4>見どころと戦術分析</h4>
-        <p class="article-p">この試合の最大のテーマは、「メスキータの世界最高峰オープンガード＆サブミッション技術」対「チアソンのリーチアドバンテージと立ち勝負の圧力」の激突にある。</p>
-<p class="article-p">メスキータの真骨頂は、スパイダーガード、ラッソーガード、デ・ラ・ヒーバを状況に応じて自在に組み替える流麗なオープンガードと、一瞬の隙からバック奪取や関節技へ繋げる連動性にある。特に直近のUFC Vegas 119（メリッサ・マリンズ戦）において、1R冒頭に強烈な左フックを被弾し効かされながらも、冷静にオープンガードへと引き込み、頭部を保護しながらダメージを回復させて1R 3分16秒に腕ひしぎ十字固めで鮮やかな一発逆転劇を演じた攻防は、彼女の柔術の底深さを象徴している。チアソンとしては、長身とリーチを生かしたジャブと前蹴りで絶対的な距離を保ち、クリンチの際も肘打ちでダメージを与えてテイクダウンを拒絶する立ち回りが絶対条件となる。</p>
-
-        <div class="insight-box">
-          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
-          <p class="article-p" style="margin-bottom:0;">メスキータがチアソンの打撃プレッシャーを潜り抜け、引き込みやテイクダウンからオープンガード経由で4試合連続となる一本勝ちを収めた場合、柔術界のレジェンドがUFC女子バンタム級トップ10前線へ一気に躍り出ることとなり、階級のグラップリング水準を大きく引き上げることになる。チアソンが距離を保って完封すれば、打撃のフレーム形成によって世界的柔術家を退けた実力者としての地位を強固にする。</p>
-        </div>
-
-        <h4>詳細予想と最新オッズ</h4>
-        <div class="table-wrapper"><table class="data-table">
-<thead><tr>
-<th>最新マネーラインオッズ</th>
-<th>メイシー・チアソン (+150) vs. ビア・メスキータ (-175)</th>
-</tr></thead>
-<tbody>
-<tr>
-<th>勝利予想</th>
-<td>ビア・メスキータ</td>
+<td>ジム・ミラー</td>
 </tr>
 <tr>
 <th>決着方法</th>
@@ -1616,7 +1241,7 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
 </tr>
 <tr>
 <th>達成ラウンド</th>
-<td>第1ラウンド（3分20秒）</td>
+<td>第2ラウンド（3分40秒）</td>
 </tr>
 <tr>
 <th>判定詳細</th>
@@ -1625,51 +1250,49 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
 </tbody></table></div>
 
         <h4>コミュニティの反応</h4>
-        <p class="article-p">Reddit等の格闘技コミュニティ（/r/MMA）では、「メスキータのオープンガード引き込みからの逆転腕十字は美しすぎた」「チアソンがリーチで距離を取れるかが勝負だが、グラウンドに持ち込まれたらメスキータの独壇場」「WMMA史上最高峰のBJJ技術を見られるのが楽しみ」と絶賛の声が溢れている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
-        <p class="article-p" style="color:var(--text-muted);font-style:italic;">最高峰のグラップリング技術の余韻を残しつつ、スクランブル参戦が絡むハイスピードなバンタム級の激突へ繋げる。</p>
+        <p class="article-p">Reddit（/r/MMA）では、「マキニーの1Rガス欠リスク対ミラーのゾンビ的耐久力」「マキニーが最初の2分で首を刈れなければ、ミラーがバックを取って一本勝ちする未来しか見えない」といった時間経過に伴う戦術変化を指摘するコメントが目立つ。長年オクタゴンを支えるミラーへの惜しみないリスペクトと、マキニーの極端なファイトスタイルに対するスリル感が掲示板を沸かせている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
+        <p class="article-p" style="color:var(--text-muted);font-style:italic;">ベテランの老練な意地が光ったライト級戦から、急遽参戦が決定したプレリムメインのミドル級戦への展開を予告する。</p>
       </div>
     </article>
 
-
-    <!-- BOUT: bout-diaz-alateng -->
-    <article id="bout-diaz-alateng" class="bout-card">
+    <article id="bout-dober-duncan" class="bout-card">
       <div class="bout-header">
-        <span class="bout-order-badge">アーリープレリム第3試合</span>
-        <span class="bout-weight-badge">バンタム級（-61.2kg ※ヤネス欠場によるヘイリ急遽参戦）</span>
+        <span class="bout-order-badge">プレリム第2試合</span>
+        <span class="bout-weight-badge">ライト級（-70.3kg）</span>
       </div>
-      <h2 class="bout-title">フアン・ディアス vs. アラテン・ヘイリ</h2>
-      <p class="article-p">バンタム級で予定されていたカードからヤネスが負傷欠場したことを受け、中国のタフガイ、アラテン・ヘイリが急遽スクランブル参戦。破竹の勢いを見せる新鋭フアン・ディアスとの一戦が決定した。ハイスピードなバンタム級において、ショート通知でのスクランブル発進というハンデをヘイリがどう克服するか、ディアスが落ち着いて相手のアプローチを捌けるかが問われる緊急文脈の一戦だ。</p>
+      <h2 class="bout-title">ドリュー・ドーバー vs. クリス・ダンカン</h2>
+      <p class="article-p">激戦区ライト級において屈指の破壊力と打撃耐性を誇るドリュー・ドーバーと、アグレッシブなプレッシャーを前面に押し出すスコットランドの激闘派クリス・ダンカンによる一戦は、全カードを通じても「ファイト・オブ・ザ・ナイト」獲得の最右翼に位置づけられる。常にフィニッシュを狙い続ける両者の激突は、ランキング前線への生き残りとボーナス獲得を賭けた直接対決であり、ライト級の層の厚さを象徴する試練の一戦となる。</p>
 
       <div class="analysis-subblock">
         <h4>選手プロフィール＆データ</h4>
-        <p class="article-p">フアン・ディアスは、切れ味鋭いカウンターボクシングと精緻な距離感を誇るバンタム級の期待の新星だ。対するアラテン・ヘイリは、中国出身の力強いレスリング基盤と頑丈な顎を持つタフファイター。今回のUFC 334では、ヤネスの負傷欠場に伴う急なオファーを快諾し、プレリムの熱量を支えるべくスクランブル参戦を果たした。</p>
+        <p class="article-p">ドリュー・ドーバーは、キャリア初期の連敗や度重なるファイトマネーの困窮といった過酷な試練を、自慢のメンタルとハードワークで克服してきたライト級屈指のハードパンチャーだ。幾多の流血戦を潜り抜け、オクタゴン内で無数のファイトボーナスを獲得してきた名物ファイターである。対するクリス・ダンカンは、スコットランドの厳しい格闘技環境から叩き上がり、ノンストップの前進と打ち合いを好む情熱的なストライカーで、アグレッシブな姿勢を武器にUFCライト級戦線で着実にキャリアを積み上げてきた。</p>
 
         <div class="table-wrapper"><table class="data-table">
 <thead><tr>
 <th>ステータス / 選手名</th>
-<th>フアン・ディアス</th>
-<th>アラテン・ヘイリ</th>
+<th>ドリュー・ドーバー</th>
+<th>クリス・ダンカン</th>
 </tr></thead>
 <tbody>
 <tr>
 <th>MMA公式戦績</th>
-<td>16勝1敗1分 [ESPN公式]</td>
-<td>18勝10敗2分 [ESPN公式/Sherdog]</td>
+<td>29勝15敗0分 [ESPN公式]</td>
+<td>15勝3敗0分 [ESPN公式]</td>
 </tr>
 <tr>
 <th>バックボーン</th>
-<td>ボクシング / 総合格闘技</td>
-<td>フリースタイルレスリング</td>
+<td>ムエタイ / ボクシング</td>
+<td>キックボクシング / フリースタイルレスリング</td>
 </tr>
 <tr>
 <th>身長 / リーチ</th>
-<td>170cm / 173cm</td>
-<td>168cm / 170cm</td>
+<td>173cm / 178cm</td>
+<td>178cm / 180cm</td>
 </tr>
 <tr>
 <th>ファイトスタイル</th>
-<td>精密カウンター・ストライカー</td>
-<td>パワフル・レスラー＆ボクサー</td>
+<td>サウスポー・パワーパンチャー</td>
+<td>前進型アグレッシブストライカー</td>
 </tr>
 </tbody></table></div>
 
@@ -1678,13 +1301,13 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
     <div class="fighter-card">
       <div class="fighter-header">
         <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/5310574.png&w=350&h=254" alt="フアン・ディアス" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/5310574.png';">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2951202.png&w=350&h=254" alt="ドリュー・ドーバー" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/2951202.png';">
         </div>
         <div class="fighter-name-box">
-          <h3>フアン・ディアス</h3>
-          <div class="fighter-name-en">Juan Diaz <img src="https://a.espncdn.com/i/teamlogos/countries/500/per.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"El Guapo"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 16勝1敗1分</div>
+          <h3>ドリュー・ドーバー</h3>
+          <div class="fighter-name-en">Drew Dober <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          
+          <div class="fighter-record-badge">🏆 MMA戦績: 29勝15敗0分</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1692,7 +1315,7 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
       <div class="fighter-links">
         
-        <a href="https://www.espn.com/mma/fighter/_/id/5310574" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Juan Diaz &rarr;</a>
+        <a href="https://www.espn.com/mma/fighter/_/id/2951202" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Drew Dober &rarr;</a>
       </div>
     </div>
 
@@ -1701,13 +1324,13 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
     <div class="fighter-card">
       <div class="fighter-header">
         <div class="fighter-portrait-wrapper">
-          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3154389.png&w=350&h=254" alt="アラテン・ヘイリ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/3154389.png';">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4867356.png&w=350&h=254" alt="クリス・ダンカン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4867356.png';">
         </div>
         <div class="fighter-name-box">
-          <h3>アラテン・ヘイリ</h3>
-          <div class="fighter-name-en">Heili Alateng <img src="https://a.espncdn.com/i/teamlogos/countries/500/chn.png" alt="flag" class="fighter-flag-icon"></div>
-          <div class="fighter-nickname">"The Mongolian Knight"</div>
-          <div class="fighter-record-badge">🏆 MMA戦績: 18勝10敗2分</div>
+          <h3>クリス・ダンカン</h3>
+          <div class="fighter-name-en">Chris Duncan <img src="https://a.espncdn.com/i/teamlogos/countries/500/sct.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"The Problem"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 15勝3敗0分</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1715,31 +1338,160 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
       <div class="fighter-links">
         
-        <a href="https://www.espn.com/mma/fighter/_/id/3154389" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Heili Alateng &rarr;</a>
+        <a href="https://www.espn.com/mma/fighter/_/id/4867356" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Chris Duncan &rarr;</a>
       </div>
     </div>
 
         </div>
 
         <h4>見どころと戦術分析</h4>
-        <p class="article-p">この試合の技術的相性は、「ヘイリが繰り出すダブルレッグでのケージ押し込み」対「ディアスのリードハンドでの距離制御とレベルチェンジへのカウンター」の攻防に集約される。</p>
-<p class="article-p">ショート通知のヘイリは、スタミナの急激な消耗を避けるため、序盤から力強いダブルレッグでディアスをフェンス際へ押し込み、相手のサークリング移動を遮断してケージ際で体力を削りたい。対するディアスは、リードハンドのジャブでヘイリの進入角度を限定し、相手が焦ってレベルチェンジを仕掛けてくる打ち際に膝蹴りやアッパーカットを合わせるサークリング戦術が極めて有効となる。ヘイリが序盤にテイクダウンでペースを握れるか、ディアスが距離を保ってスタミナ切れを誘うかが勝敗を分かつ。</p>
+        <p class="article-p">この試合の戦術的本質は、危険領域での近接打撃戦において「どちらの構造的フレームと打撃精度が相手の耐久力を突破するか」という純粋な破壊力対決にある。</p>
+<p class="article-p">ドーバーの最大の強みは、サウスポー構えから放たれるコンパクトかつ破壊的な左ストレートと、強固なガードで相手の攻撃を吸収する顎のタフネスだ。ダンカンが直線的なプレッシャーで前進してくる局面こそ、ドーバーのショートカウンターが最も火を吹く瞬間となる。ダンカンとしては、頭部を一直線に晒すアプローチを避け、レベルチェンジの緩急を交えてダブルレッグの姿勢からチェイン・レスリングへ移行し、ドーバーの足止めてケージ背後に固定する戦術が求められる。</p>
 
         <div class="insight-box">
           <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
-          <p class="article-p" style="margin-bottom:0;">ディアスがサークリングとカウンター打撃でヘイリの突進をいなし、3-0の判定勝ちを収めれば、緊急変更にも揺るがない戦術的柔軟性を証明し、バンタム級プロスペクトとしての評価を確立する。ヘイリがショート通知のハンデを跳ね返してテイクダウンで潰し勝てば、急参戦に応じるタフガイとしての価値と階級内での存在感を大きくアピールすることになる。</p>
+          <p class="article-p" style="margin-bottom:0;">ドーバーがポケット（近距離）での攻防を支配し、コンパクトな左フックでダンカンを沈めた場合、ライト級トップ15圏内を脅かす若手に対する「最凶の壁」としての価値を誇示することになる。逆にダンカンがドーバーのカウンターを打撃の打ち分けとチェイン・レスリングで潰し、打撃戦で打ち勝てば、スコットランド発の新鋭としてライト級上位戦線へ浮上する足がかりを築くことになる。</p>
         </div>
 
         <h4>詳細予想と最新オッズ</h4>
         <div class="table-wrapper"><table class="data-table">
 <thead><tr>
 <th>最新マネーラインオッズ</th>
-<th>フアン・ディアス (-160) vs. アラテン・ヘイリ (+135)</th>
+<th>ドリュー・ドーバー (-185) vs. クリス・ダンカン (+155)</th>
 </tr></thead>
 <tbody>
 <tr>
 <th>勝利予想</th>
-<td>フアン・ディアス</td>
+<td>ドリュー・ドーバー</td>
+</tr>
+<tr>
+<th>決着方法</th>
+<td>KO/TKO</td>
+</tr>
+<tr>
+<th>達成ラウンド</th>
+<td>第2ラウンド（2分35秒）</td>
+</tr>
+<tr>
+<th>判定詳細</th>
+<td>判定に至らず（TKO：左ストレートからのパウンド）</td>
+</tr>
+</tbody></table></div>
+
+        <h4>コミュニティの反応</h4>
+        <p class="article-p">Redditの/r/MMAコミュニティでは、「ドーバーの試合に外れなし。1ラウンドからガードを固めて打ち合う展開になるのは確実」「ダンカンが正面から突っ込めばドーバーのカウンターの餌食になるが、組みを混ぜれば展開は化ける」といった熱い議論が交わされている。バイオレンス溢れるファイトスタイルを持つ両者だけに、早期決着か流血戦かを巡る予想コメントが交錯している。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
+        <p class="article-p" style="color:var(--text-muted);font-style:italic;">ライト級の爆発的な打撃戦が残した熱気は、MMA界の生きる伝説が登場する注目の第3試合へと継承される。</p>
+      </div>
+    </article>
+
+    <article id="bout-thompson-radtke" class="bout-card">
+      <div class="bout-header">
+        <span class="bout-order-badge">プレリム第1試合</span>
+        <span class="bout-weight-badge">ウェルター級（-77.1kg）</span>
+      </div>
+      <h2 class="bout-title">スティーブン・トンプソン vs. チャールズ・ラドケ</h2>
+      <p class="article-p">ウェルター級プレリムのオープニングを飾る本カードは、長年にわたり伝統派空手の美学をオクタゴン上で体現し続けてきた「ワンダーボーイ」スティーブン・トンプソンと、インサイドでの泥臭い削り合いと近接打撃で圧力をかけるチャールズ・ラドケによる、象徴的な対極スタイル＆世代交錯マッチである。ランカー前線での生存権を維持したいトンプソンにとっても、トップ15の門番を打ち倒して一気に階級のスターダムへ躍り出たいラドケにとっても、プレリム筆頭試合という注目枠で己の戦術的優位性を誇示することは、ウェルター級の戦力図を再定義する上で極めて高い価値を持つ。</p>
+
+      <div class="analysis-subblock">
+        <h4>選手プロフィール＆データ</h4>
+        <p class="article-p">スティーブン・トンプソンは、幼少期より実父の手ほどきで伝統派空手とキックボクシングの英才教育を受け、キックボクシングで50戦以上無敗という金字塔を打ち立ててMMAへ転身した。度重なる両膝の手術や厳しいリハビリを乗り越え、40代を迎えてなおトップレベルの動体視力とステップワークを維持する「伝統派打撃の至宝」である。対するチャールズ・ラドケは、ローカル団体での過酷な下積みを経てファイトスタイルを研ぎ澄まし、相手の被弾を恐れずインサイドへ侵入する圧倒的なタフネスと強力なショートフックを武器にUFCの階段を駆け上がってきた武闘派ストライカーだ。</p>
+
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>ステータス / 選手名</th>
+<th>スティーブン・トンプソン</th>
+<th>チャールズ・ラドケ</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>MMA公式戦績</th>
+<td>17勝9敗1分 [ESPN公式]</td>
+<td>12勝5敗0分 [ESPN公式]</td>
+</tr>
+<tr>
+<th>バックボーン</th>
+<td>伝統派空手 / キックボクシング</td>
+<td>ボクシング / フリースタイルレスリング</td>
+</tr>
+<tr>
+<th>身長 / リーチ</th>
+<td>183cm / 191cm</td>
+<td>178cm / 183cm</td>
+</tr>
+<tr>
+<th>ファイトスタイル</th>
+<td>遠距離変幻自在ストライカー</td>
+<td>インサイド・プレッシャーボクサー</td>
+</tr>
+</tbody></table></div>
+
+        <div class="fighter-comparison-grid">
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2615077.png&w=350&h=254" alt="スティーブン・トンプソン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/2615077.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>スティーブン・トンプソン</h3>
+          <div class="fighter-name-en">Stephen Thompson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"Wonderboy"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 17勝9敗1分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/2615077" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Stephen Thompson &rarr;</a>
+      </div>
+    </div>
+
+          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4416297.png&w=350&h=254" alt="チャールズ・ラドケ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4416297.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>チャールズ・ラドケ</h3>
+          <div class="fighter-name-en">Charles Radtke <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"Chuck Buffalo"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 12勝5敗0分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/4416297" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Charles Radtke &rarr;</a>
+      </div>
+    </div>
+
+        </div>
+
+        <h4>見どころと戦術分析</h4>
+        <p class="article-p">この試合のメカニズムを解体するキーは、トンプソンが保持する「アウトサイドでの幾何学的間合い支配」に対し、ラドケがいかに被弾リスクを許容してインサイドへ踏み込めるかという幾何学と距離の相克にある。</p>
+<p class="article-p">トンプソンはワイドスタンスから繰り出す左右のスイッチ、前足でのサイドキック、そして相手の踏み込みに合わせて対角線上に切るステップワークで間合いを完全統御する。ラドケが勝利を手繰り寄せるための絶対条件は、単進的な追撃を避け、フェイントを交えたケージカットでトンプソンを金網背後へと追い詰め、頭部を相手の胸元に密着させた近距離フック戦に引きずり込むことだ。</p>
+
+        <div class="insight-box">
+          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
+          <p class="article-p" style="margin-bottom:0;">トンプソンがアウトサイドで対角線のステップワークを維持し、ラドケの突進をサークリングで無効化し続けた場合、40代にしてウェルター級トップ15前線の絶対的門番としての技術的優位性を再証明することになる。逆にラドケが被弾覚悟でインサイドへ侵入し、ショートフックでトンプソンの顎を撃ち抜いて沈めれば、泥臭い叩き上げスタイルの価値を階級全体に知らしめる構造的地殻変動を引き起こす。</p>
+        </div>
+
+        <h4>詳細予想と最新オッズ</h4>
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>最新マネーラインオッズ</th>
+<th>スティーブン・トンプソン (-165) vs. チャールズ・ラドケ (+140)</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>勝利予想</th>
+<td>スティーブン・トンプソン</td>
 </tr>
 <tr>
 <th>決着方法</th>
@@ -1751,18 +1503,21 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
 </tr>
 <tr>
 <th>判定詳細</th>
-<td>3-0（ユナニマス・デシジョン：29-28, 29-28, 30-27）</td>
+<td>3-0（ユナニマス・デシジョン：29-28, 30-27, 30-27）</td>
 </tr>
 </tbody></table></div>
 
         <h4>コミュニティの反応</h4>
-        <p class="article-p">海外のファンからは「ヤネスの欠場は残念だが、スクランブル参戦を受けたヘイリの男気にリスペクト」「ヘイリのパワフルな組みが序盤にハマらなければ、ディアスのカウンターの餌食になる」といったリアルな声が投稿されている。ハイスピードな攻防に対する期待が寄せられている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: 海外ファンコミュニティ</span></p>
-        <p class="article-p" style="color:var(--text-muted);font-style:italic;">熱戦続くバンタム級から、アーリープレリムの最終戦となる第8試合へとスムーズに視点を移行させる。</p>
+        <p class="article-p">海外掲示板（Reddit /r/MMA）の戦術スレッドでは、「トンプソンの膝のコンディションと横移動のキレが保たれていれば、ラドケは空を切り続けてガス欠を起こす」「ラドケの踏み込み速度ならトンプソンのサークリングの出端にオーバーハンドを引っ掛けられる」といった具体的な攻防を巡る議論が白熱している。レジェンドへのリスペクトが寄せられる一方で、トンプソンの加齢によるフットワーク低下を懸念する声も少なくない。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA 戦術スレッド</span></p>
+        <p class="article-p" style="color:var(--text-muted);font-style:italic;">トンプソンの華麗なステップがプレリムのボルテージを一気に跳ね上げた熱量は、そのまま激戦必至のライト級バウトへと引き継がれる。</p>
       </div>
     </article>
 
+    <div class="section-banner">
+      <div class="section-banner-title">⚡ アーリープレリム（Early Prelims）全4試合</div>
+      <div class="section-banner-meta">UFC Fight Pass / U-NEXT ライブ配信</div>
+    </div>
 
-    <!-- BOUT: bout-elder-sanchez -->
     <article id="bout-elder-sanchez" class="bout-card">
       <div class="bout-header">
         <span class="bout-order-badge">アーリープレリム第4試合</span>
@@ -1892,6 +1647,387 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       </div>
     </article>
 
+    <article id="bout-diaz-alateng" class="bout-card">
+      <div class="bout-header">
+        <span class="bout-order-badge">アーリープレリム第3試合</span>
+        <span class="bout-weight-badge">バンタム級（-61.2kg ※ヤネス欠場によるヘイリ急遽参戦）</span>
+      </div>
+      <h2 class="bout-title">フアン・ディアス vs. アラテン・ヘイリ</h2>
+      <p class="article-p">バンタム級で予定されていたカードからヤネスが負傷欠場したことを受け、中国のタフガイ、アラテン・ヘイリが急遽スクランブル参戦。破竹の勢いを見せる新鋭フアン・ディアスとの一戦が決定した。ハイスピードなバンタム級において、ショート通知でのスクランブル発進というハンデをヘイリがどう克服するか、ディアスが落ち着いて相手のアプローチを捌けるかが問われる緊急文脈の一戦だ。</p>
+
+      <div class="analysis-subblock">
+        <h4>選手プロフィール＆データ</h4>
+        <p class="article-p">フアン・ディアスは、切れ味鋭いカウンターボクシングと精緻な距離感を誇るバンタム級の期待の新星だ。対するアラテン・ヘイリは、中国出身の力強いレスリング基盤と頑丈な顎を持つタフファイター。今回のUFC 334では、ヤネスの負傷欠場に伴う急なオファーを快諾し、プレリムの熱量を支えるべくスクランブル参戦を果たした。</p>
+
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>ステータス / 選手名</th>
+<th>フアン・ディアス</th>
+<th>アラテン・ヘイリ</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>MMA公式戦績</th>
+<td>16勝1敗1分 [ESPN公式]</td>
+<td>18勝10敗2分 [ESPN公式/Sherdog]</td>
+</tr>
+<tr>
+<th>バックボーン</th>
+<td>ボクシング / 総合格闘技</td>
+<td>フリースタイルレスリング</td>
+</tr>
+<tr>
+<th>身長 / リーチ</th>
+<td>170cm / 173cm</td>
+<td>168cm / 170cm</td>
+</tr>
+<tr>
+<th>ファイトスタイル</th>
+<td>精密カウンター・ストライカー</td>
+<td>パワフル・レスラー＆ボクサー</td>
+</tr>
+</tbody></table></div>
+
+        <div class="fighter-comparison-grid">
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/5310574.png&w=350&h=254" alt="フアン・ディアス" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/5310574.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>フアン・ディアス</h3>
+          <div class="fighter-name-en">Juan Diaz <img src="https://a.espncdn.com/i/teamlogos/countries/500/per.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"El Guapo"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 16勝1敗1分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/5310574" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Juan Diaz &rarr;</a>
+      </div>
+    </div>
+
+          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3154389.png&w=350&h=254" alt="アラテン・ヘイリ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/3154389.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>アラテン・ヘイリ</h3>
+          <div class="fighter-name-en">Heili Alateng <img src="https://a.espncdn.com/i/teamlogos/countries/500/chn.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"The Mongolian Knight"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 18勝10敗2分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/3154389" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Heili Alateng &rarr;</a>
+      </div>
+    </div>
+
+        </div>
+
+        <h4>見どころと戦術分析</h4>
+        <p class="article-p">この試合の技術的相性は、「ヘイリが繰り出すダブルレッグでのケージ押し込み」対「ディアスのリードハンドでの距離制御とレベルチェンジへのカウンター」の攻防に集約される。</p>
+<p class="article-p">ショート通知のヘイリは、スタミナの急激な消耗を避けるため、序盤から力強いダブルレッグでディアスをフェンス際へ押し込み、相手のサークリング移動を遮断してケージ際で体力を削りたい。対するディアスは、リードハンドのジャブでヘイリの進入角度を限定し、相手が焦ってレベルチェンジを仕掛けてくる打ち際に膝蹴りやアッパーカットを合わせるサークリング戦術が極めて有効となる。ヘイリが序盤にテイクダウンでペースを握れるか、ディアスが距離を保ってスタミナ切れを誘うかが勝敗を分かつ。</p>
+
+        <div class="insight-box">
+          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
+          <p class="article-p" style="margin-bottom:0;">ディアスがサークリングとカウンター打撃でヘイリの突進をいなし、3-0の判定勝ちを収めれば、緊急変更にも揺るがない戦術的柔軟性を証明し、バンタム級プロスペクトとしての評価を確立する。ヘイリがショート通知のハンデを跳ね返してテイクダウンで潰し勝てば、急参戦に応じるタフガイとしての価値と階級内での存在感を大きくアピールすることになる。</p>
+        </div>
+
+        <h4>詳細予想と最新オッズ</h4>
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>最新マネーラインオッズ</th>
+<th>フアン・ディアス (-160) vs. アラテン・ヘイリ (+135)</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>勝利予想</th>
+<td>フアン・ディアス</td>
+</tr>
+<tr>
+<th>決着方法</th>
+<td>判定</td>
+</tr>
+<tr>
+<th>達成ラウンド</th>
+<td>第3ラウンド終了</td>
+</tr>
+<tr>
+<th>判定詳細</th>
+<td>3-0（ユナニマス・デシジョン：29-28, 29-28, 30-27）</td>
+</tr>
+</tbody></table></div>
+
+        <h4>コミュニティの反応</h4>
+        <p class="article-p">海外のファンからは「ヤネスの欠場は残念だが、スクランブル参戦を受けたヘイリの男気にリスペクト」「ヘイリのパワフルな組みが序盤にハマらなければ、ディアスのカウンターの餌食になる」といったリアルな声が投稿されている。ハイスピードな攻防に対する期待が寄せられている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: 海外ファンコミュニティ</span></p>
+        <p class="article-p" style="color:var(--text-muted);font-style:italic;">熱戦続くバンタム級から、アーリープレリムの最終戦となる第8試合へとスムーズに視点を移行させる。</p>
+      </div>
+    </article>
+
+    <article id="bout-chiasson-mesquita" class="bout-card">
+      <div class="bout-header">
+        <span class="bout-order-badge">アーリープレリム第2試合</span>
+        <span class="bout-weight-badge">女子バンタム級（-61.2kg）</span>
+      </div>
+      <h2 class="bout-title">メイシー・チアソン vs. ビア・メスキータ</h2>
+      <p class="article-p">女子バンタム級戦線において絶対に見逃せない本カードは、IBJJF世界選手権を10度制覇し、ギネス世界記録認定および殿堂入り（Hall of Fame）を果たしたブラジリアン柔術界のレジェンド、ビア・メスキータと、大型ストライカーとしてランカー上位に君臨するメイシー・チアソンによる屈指のスタイル対決である。メスキータがMMAの舞台でもその圧倒的なグラウンド技術を証明しトップ10入りへ名乗りを上げるのか、チアソンが体格アドバンテージと打撃で立ち塞がるのか、階級の未来を占う試練の一戦だ。</p>
+
+      <div class="analysis-subblock">
+        <h4>選手プロフィール＆データ</h4>
+        <p class="article-p">ビア・メスキータ（Beatriz de Oliveira Mesquita）は1991年ブラジル・サクアレーマ生まれ。5歳で柔術を始め、名門グレイシー・ウマイタでレティシア・リベイロの指導を受け黒帯を取得。IBJJF世界選手権黒帯部門で10度の優勝（8度の階級別、2度の無差別級）を果たしギネス世界記録に認定され、2022年にHall of Fame入りした。2023年にAmerican Top Team（ATT）へ加入してMMA本格転向後、プロデビュー戦（Spaten Fight Nightでの1R一本勝ち）、LFAでの4連勝およびLFA女子バンタム級王座獲得（シエラ・ディンウッディ戦2R TKO）を経てUFCへ参戦。UFCデビュー戦のイリーナ・アレクセエワ戦（2R RNCでPerformance of the Night獲得）、第2戦のモンセラート・レンドン戦（1R RNC）、そして直近のUFC Vegas 119におけるメリッサ・マリンズ戦と、オクタゴン3戦全てで一本勝ちを収め通算8勝0敗と底知れぬ強さを見せている。対するメイシー・チアソンは、The Ultimate Fighter覇者であり、長身とリーチを生かしたパワフルな打撃で上位を維持してきた実力者である。</p>
+
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>ステータス / 選手名</th>
+<th>メイシー・チアソン</th>
+<th>ビア・メスキータ</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>MMA公式戦績</th>
+<td>11勝6敗0分 [ESPN公式]</td>
+<td>8勝0敗0分（無敗） [ESPN公式]</td>
+</tr>
+<tr>
+<th>バックボーン</th>
+<td>ムエタイ / 総合格闘技</td>
+<td>ブラジリアン柔術（10度世界王者・ギネス記録）</td>
+</tr>
+<tr>
+<th>身長 / リーチ</th>
+<td>180cm / 183cm</td>
+<td>165cm / 168cm</td>
+</tr>
+</tbody></table></div>
+
+        <div class="fighter-comparison-grid">
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4334306.png&w=350&h=254" alt="メイシー・チアソン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4334306.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>メイシー・チアソン</h3>
+          <div class="fighter-name-en">Macy Chiasson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          
+          <div class="fighter-record-badge">🏆 MMA戦績: 11勝6敗0分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/4334306" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Macy Chiasson &rarr;</a>
+      </div>
+    </div>
+
+          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/5310274.png&w=350&h=254" alt="ビア・メスキータ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/5310274.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>ビア・メスキータ</h3>
+          <div class="fighter-name-en">Bia Mesquita <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"The Lady GOAT"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 8勝0敗0分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/5310274" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Bia Mesquita &rarr;</a>
+      </div>
+    </div>
+
+        </div>
+
+        <h4>見どころと戦術分析</h4>
+        <p class="article-p">この試合の最大のテーマは、「メスキータの世界最高峰オープンガード＆サブミッション技術」対「チアソンのリーチアドバンテージと立ち勝負の圧力」の激突にある。</p>
+<p class="article-p">メスキータの真骨頂は、スパイダーガード、ラッソーガード、デ・ラ・ヒーバを状況に応じて自在に組み替える流麗なオープンガードと、一瞬の隙からバック奪取や関節技へ繋げる連動性にある。特に直近のUFC Vegas 119（メリッサ・マリンズ戦）において、1R冒頭に強烈な左フックを被弾し効かされながらも、冷静にオープンガードへと引き込み、頭部を保護しながらダメージを回復させて1R 3分16秒に腕ひしぎ十字固めで鮮やかな一発逆転劇を演じた攻防は、彼女の柔術の底深さを象徴している。チアソンとしては、長身とリーチを生かしたジャブと前蹴りで絶対的な距離を保ち、クリンチの際も肘打ちでダメージを与えてテイクダウンを拒絶する立ち回りが絶対条件となる。</p>
+
+        <div class="insight-box">
+          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
+          <p class="article-p" style="margin-bottom:0;">メスキータがチアソンの打撃プレッシャーを潜り抜け、引き込みやテイクダウンからオープンガード経由で4試合連続となる一本勝ちを収めた場合、柔術界のレジェンドがUFC女子バンタム級トップ10前線へ一気に躍り出ることとなり、階級のグラップリング水準を大きく引き上げることになる。チアソンが距離を保って完封すれば、打撃のフレーム形成によって世界的柔術家を退けた実力者としての地位を強固にする。</p>
+        </div>
+
+        <h4>詳細予想と最新オッズ</h4>
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>最新マネーラインオッズ</th>
+<th>メイシー・チアソン (+150) vs. ビア・メスキータ (-175)</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>勝利予想</th>
+<td>ビア・メスキータ</td>
+</tr>
+<tr>
+<th>決着方法</th>
+<td>一本（サブミッション：リアネイキドチョーク）</td>
+</tr>
+<tr>
+<th>達成ラウンド</th>
+<td>第1ラウンド（3分20秒）</td>
+</tr>
+<tr>
+<th>判定詳細</th>
+<td>判定に至らず（一本勝ち）</td>
+</tr>
+</tbody></table></div>
+
+        <h4>コミュニティの反応</h4>
+        <p class="article-p">Reddit等の格闘技コミュニティ（/r/MMA）では、「メスキータのオープンガード引き込みからの逆転腕十字は美しすぎた」「チアソンがリーチで距離を取れるかが勝負だが、グラウンドに持ち込まれたらメスキータの独壇場」「WMMA史上最高峰のBJJ技術を見られるのが楽しみ」と絶賛の声が溢れている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit /r/MMA</span></p>
+        <p class="article-p" style="color:var(--text-muted);font-style:italic;">最高峰のグラップリング技術の余韻を残しつつ、スクランブル参戦が絡むハイスピードなバンタム級の激突へ繋げる。</p>
+      </div>
+    </article>
+
+    <article id="bout-gordon-costa" class="bout-card">
+      <div class="bout-header">
+        <span class="bout-order-badge">アーリープレリム第1試合</span>
+        <span class="bout-weight-badge">ライト級（-70.3kg）</span>
+      </div>
+      <h2 class="bout-title">ジャレッド・ゴードン vs. メルキザエル・コスタ</h2>
+      <p class="article-p">アーリープレリムのオープニングを飾るライト級戦は、壮絶な人生の苦難を乗り越えオクタゴンへ立ち続けるベテランのジャレッド・ゴードンと、変幻自在のスタイルと技術を持つブラジルの巧者メルキザエル・コスタによる一戦である。イベント全体のボルテージと流れを決定づけるオープニングマッチとして、両者の持つ技術的深みと泥臭い意地が激突する重要な役割を担う。</p>
+
+      <div class="analysis-subblock">
+        <h4>選手プロフィール＆データ</h4>
+        <p class="article-p">ジャレッド・ゴードンは、過去に深刻な薬物依存症を経験し、オーバードーズによって臨死体験を彷徨うほどの壮絶な逆境を乗り越えてMMAの頂点へと辿り着いた強い精神力を誇るファイターだ。対するメルキザエル・コスタは、皮膚の色素が抜ける難病「白斑症（Vitiligo）」に対する周りの偏見を克服し、カポエイラやブラジリアン柔術をベースに独自のスタイルを切り開いてきたブラジル出身の精鋭である。</p>
+
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>ステータス / 選手名</th>
+<th>ジャレッド・ゴードン</th>
+<th>メルキザエル・コスタ</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>MMA公式戦績</th>
+<td>21勝9敗0分 [ESPN公式]</td>
+<td>26勝8敗0分 [ESPN公式]</td>
+</tr>
+<tr>
+<th>バックボーン</th>
+<td>レスリング / ボクシング</td>
+<td>カポエイラ / ブラジリアン柔術</td>
+</tr>
+<tr>
+<th>身長 / リーチ</th>
+<td>175cm / 173cm</td>
+<td>180cm / 180cm</td>
+</tr>
+<tr>
+<th>ファイトスタイル</th>
+<td>泥臭いチェイン・レスラー</td>
+<td>変幻自在トリッキー・ストライカー</td>
+</tr>
+</tbody></table></div>
+
+        <div class="fighter-comparison-grid">
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3894823.png&w=350&h=254" alt="ジャレッド・ゴードン" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/3894823.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>ジャレッド・ゴードン</h3>
+          <div class="fighter-name-en">Jared Gordon <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"Flash"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 21勝9敗0分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/3894823" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Jared Gordon &rarr;</a>
+      </div>
+    </div>
+
+          <div class="vs-badge-wrapper"><div class="vs-badge">VS</div></div>
+          
+    <div class="fighter-card">
+      <div class="fighter-header">
+        <div class="fighter-portrait-wrapper">
+          <img src="https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4425763.png&w=350&h=254" alt="メルキザエル・コスタ" class="fighter-photo" loading="lazy" onerror="this.onerror=null; this.src='https://a.espncdn.com/i/headshots/mma/players/full/4425763.png';">
+        </div>
+        <div class="fighter-name-box">
+          <h3>メルキザエル・コスタ</h3>
+          <div class="fighter-name-en">Melquizael Costa <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
+          <div class="fighter-nickname">"Melk Cauteloso"</div>
+          <div class="fighter-record-badge">🏆 MMA戦績: 26勝8敗0分</div>
+        </div>
+      </div>
+      <div class="fighter-bio">
+        
+      </div>
+      <div class="fighter-links">
+        
+        <a href="https://www.espn.com/mma/fighter/_/id/4425763" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Melquizael Costa &rarr;</a>
+      </div>
+    </div>
+
+        </div>
+
+        <h4>見どころと戦術分析</h4>
+        <p class="article-p">この試合は、ゴードンの「頭部を押し付けて削る泥臭いチェイン・レスリング」と、コスタの「遠距離からのトリッキーなキック＆オープンガードからのサブミッション」が交錯する攻防となる。</p>
+<p class="article-p">ゴードンは体格・リーチ差を無効化するため、低く入るプレッシャーボクシングからケージ際での押し込み、相手の足を掬うテイクダウンでコスタの蹴り技を封印しにかかる。コスタとしては、変幻自在のステップとミドルキックでゴードンの進入角度を制限し、組み付かれた際も柔術のガードワークから三角絞めやギロチンチョークを狙う戦術で対抗する。</p>
+
+        <div class="insight-box">
+          <div class="insight-label"><span class="insight-icon">💡</span> <strong>So What?（洞察と波及効果）</strong></div>
+          <p class="article-p" style="margin-bottom:0;">ゴードンがスタミナとレスリング圧力でコスタを泥沼のグラウンド展開に引きずり込めば、ライト級のベテランとしてのタフネスと粘り勝ちの強みを証明できる。コスタがゴードンの前進を華麗にいなし、遠距離打撃とガードワークで翻弄して勝利を収めれば、テクニカルな新鋭としての存在感を高めることになる。</p>
+        </div>
+
+        <h4>詳細予想と最新オッズ</h4>
+        <div class="table-wrapper"><table class="data-table">
+<thead><tr>
+<th>最新マネーラインオッズ</th>
+<th>ジャレッド・ゴードン (-125) vs. メルキザエル・コスタ (+105)</th>
+</tr></thead>
+<tbody>
+<tr>
+<th>勝利予想</th>
+<td>ジャレッド・ゴードン</td>
+</tr>
+<tr>
+<th>決着方法</th>
+<td>判定</td>
+</tr>
+<tr>
+<th>達成ラウンド</th>
+<td>第3ラウンド終了</td>
+</tr>
+<tr>
+<th>判定詳細</th>
+<td>2-1（スプリット・デシジョン：29-28, 28-29, 29-28）</td>
+</tr>
+</tbody></table></div>
+
+        <h4>コミュニティの反応</h4>
+        <p class="article-p">Redditでは、過酷な試練を乗り越えてきた両者のバックボーンに対する深いリスペクトの声が相次いでいる。「ゴードンの圧倒的なハートとプレッシャーは評価されるべき」「コスタの蹴りの軌道とオープンガードの滑らかさは通好み」といった、技術とストーリー性を兼ね備えた好カードとして注目されている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: Reddit r/mma</span></p>
+        <p class="article-p" style="color:var(--text-muted);font-style:italic;">ライト級の泥臭くもハイレベルな技術戦から、女子グラップリング界の最高峰レジェンドが登場する注目の第6試合（アーリープレリム第2試合）への接続文を配置する。</p>
+      </div>
+    </article>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -1901,5 +2037,115 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
       <p style="margin-top:16px;"><a href="#toc">▲ ページ上部・目次へ戻る</a></p>
     </footer>
   </div>
+
+    <!-- FLOATING NAVIGATION BUTTONS -->
+    <div class="floating-nav" id="floatingNav">
+      <a href="#toc" class="float-btn" id="floatTocBtn" title="目次へジャンプ">
+        <span class="float-icon">📑</span>
+        <span class="float-label">目次</span>
+      </a>
+      <button type="button" class="float-btn" id="floatTopBtn" title="ページ最上部へ">
+        <span class="float-icon">▲</span>
+        <span class="float-label">TOP</span>
+      </button>
+    </div>
+
+    <!-- CLIENT INTERACTION SCRIPT -->
+    <script>
+      (function() {
+        const floatingNav = document.getElementById('floatingNav');
+        const floatTopBtn = document.getElementById('floatTopBtn');
+        const searchInput = document.getElementById('fighterSearch');
+        const clearBtn = document.getElementById('clearSearch');
+        const catTabs = document.querySelectorAll('.cat-tab');
+        const tocGroups = document.querySelectorAll('.toc-group');
+        const noResultsMsg = document.getElementById('noResultsMsg');
+
+        // Scroll listener for floating buttons
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 300) {
+            floatingNav.classList.add('visible');
+          } else {
+            floatingNav.classList.remove('visible');
+          }
+        }, { passive: true });
+
+        if (floatTopBtn) {
+          floatTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+
+        // Filtering logic
+        let currentCat = 'all';
+
+        function filterItems() {
+          const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+          if (clearBtn) {
+            clearBtn.style.display = query.length > 0 ? 'block' : 'none';
+          }
+
+          let visibleCount = 0;
+
+          tocGroups.forEach(group => {
+            const groupCat = group.getAttribute('data-cat');
+            let groupHasVisible = false;
+
+            const items = group.querySelectorAll('.toc-item');
+            items.forEach(item => {
+              const text = item.textContent.toLowerCase();
+              const matchQuery = !query || text.includes(query);
+              const matchCat = (currentCat === 'all') || (currentCat === groupCat);
+
+              if (matchQuery && matchCat) {
+                item.classList.remove('hidden-by-filter');
+                if (query) {
+                  item.classList.add('highlight-match');
+                } else {
+                  item.classList.remove('highlight-match');
+                }
+                groupHasVisible = true;
+                visibleCount++;
+              } else {
+                item.classList.add('hidden-by-filter');
+                item.classList.remove('highlight-match');
+              }
+            });
+
+            if (groupHasVisible) {
+              group.style.display = 'block';
+            } else {
+              group.style.display = 'none';
+            }
+          });
+
+          if (noResultsMsg) {
+            noResultsMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
+          }
+        }
+
+        if (searchInput) {
+          searchInput.addEventListener('input', filterItems);
+        }
+
+        if (clearBtn) {
+          clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            filterItems();
+            searchInput.focus();
+          });
+        }
+
+        catTabs.forEach(tab => {
+          tab.addEventListener('click', function() {
+            catTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentCat = this.getAttribute('data-cat');
+            filterItems();
+          });
+        });
+      })();
+    </script>
+
 </body>
 </html>

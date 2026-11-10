@@ -594,6 +594,98 @@ html {
   margin-top: 4px;
 }
 
+
+/* Recent 3 Fights Block */
+.recent-fights-block {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.recent-fights-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.recent-fights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.recent-fight-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  padding: 4px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+.recent-fight-item:last-child {
+  border-bottom: none;
+}
+.fight-res-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  min-width: 36px;
+  text-align: center;
+}
+.res-win { background: #15803d; color: #fff; }
+.res-loss { background: #b91c1c; color: #fff; }
+.res-draw { background: #475569; color: #cbd5e1; }
+.fight-detail-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  line-height: 1.35;
+}
+.fight-opp {
+  font-weight: 700;
+  color: #f1f5f9;
+}
+.fight-method {
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+.fight-event-date {
+  color: #64748b;
+  font-size: 0.75rem;
+}
+.past-fights-link-box {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.past-fights-link {
+  font-size: 0.78rem;
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+.past-fights-link:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
 /* Footer */
 .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); margin-top: 60px; color: var(--text-muted); font-size: 0.85rem; }
 .footer a { color: var(--accent-blue); text-decoration: none; }
@@ -845,6 +937,43 @@ html {
       <p><strong>UFC Freedom 250（ホワイトハウス大会）での勝利と判定論争:</strong> 2026年6月14日、ホワイトハウスのサウスローンで開催された歴史的大会「UFC Freedom 250」にて、アレックス・ペレイラとヘビー級暫定王座をかけて対戦。ガーヌは2Rに鋭いジャブでペレイラからダウンを奪い、KO/TKO勝利を収めました。しかし、パウンドによるフィニッシュの際、後頭部への打撃（back of the head shots）が含まれていたのではないかという論争が噴出。レフェリーを務めたハーブ・ディーンは査定の上でこれらを正当な有効打（legal strikes）と判定しましたが、後述の通りペレイラ陣営との間に大きな波紋を残しました。</p>
 
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Alex Pereira</span>
+                <span class="fight-method">KO/TKO（R2 1:27）</span>
+                <span class="fight-event-date">UFC Freedom 250 (2026-06-15)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-draw">NC/DRAW</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Tom Aspinall</span>
+                <span class="fight-method">ノーコンテスト（R1 4:35）</span>
+                <span class="fight-event-date">UFC 321 (2025-10-25)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Alexander Volkov</span>
+                <span class="fight-method">判定2-1（スプリット）（R3）</span>
+                <span class="fight-event-date">UFC 310 (2024-12-07)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4426000" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         <a href="https://www.ufc.com/athlete/ciryl-gane" target="_blank" rel="noopener noreferrer" class="source-link ufc-link"><span class="source-badge ufc-badge">UFC公式</span> Ciryl Gane Official UFC Athlete Profile &rarr;</a>
         <a href="https://www.espn.com/mma/fighter/_/id/4426000" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Ciryl Gane &rarr;</a>
@@ -872,6 +1001,43 @@ html {
       <p><strong>重要勝利と王座挑戦への急浮上:</strong> ホワイトハウスで開催された「UFC Freedom 250」において、ヘビー級屈指のレスリング力とパワーを誇る強豪カーティス・ブレイズと対戦したホキットは、下馬評を覆す衝撃的な勝利（ホキット vs. ブレイズ戦）を挙げました。この一戦によって格闘技界における評価が一気に急上昇し、一躍王座挑戦権を獲得するというドラマチックな躍進を果たしました。</p>
       <p><strong>公式戦績データ:</strong> ESPN公式データにおいて、MMAプロ戦績は<strong>10勝0敗0分（無敗）</strong>であることが確認されています。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: ESPN公式データ (ID:4049391)</span></p>
 
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Derrick Lewis</span>
+                <span class="fight-method">KO/TKO（R2 4:09）</span>
+                <span class="fight-event-date">UFC Freedom 250 (2026-06-15)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Curtis Blaydes</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 327 (2026-04-11)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Denzel Freeman</span>
+                <span class="fight-method">KO/TKO（R1 4:59）</span>
+                <span class="fight-event-date">UFC 324 (2026-01-24)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4049391" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         <a href="https://www.ufc.com/athlete/josh-hokit" target="_blank" rel="noopener noreferrer" class="source-link ufc-link"><span class="source-badge ufc-badge">UFC公式</span> Josh Hokit Official UFC Athlete Profile &rarr;</a>
@@ -1084,6 +1250,43 @@ html {
       <p><strong>医療トピック＆日程変更:</strong> 2026年1月24日のUFC 324で予定されていたヌネス戦が自身の頸部手術（Neck surgery）により延期となり、2026年11月14日のUFC 334（MSG）へ再設定された。</p>
 
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Julianna Peña</span>
+                <span class="fight-method">一本（サブミッション）（R2 4:55）</span>
+                <span class="fight-event-date">UFC 316 (2025-06-07)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Ketlen Vieira</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 307 (2024-10-05)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Holly Holm</span>
+                <span class="fight-method">一本（サブミッション）（R2 1:47）</span>
+                <span class="fight-event-date">UFC 300 (2024-04-13)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4332765" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/4332765" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Kayla Harrison &rarr;</a>
@@ -1110,6 +1313,43 @@ html {
       <p><strong>バックグラウンド:</strong> MMA戦績23勝5敗。BJJ黒帯。女子バンタム級およびフェザー級の同時二冠王者。2023年6月10日のUFC 289（バンクーバー大会）にてアイリーン・アルダナに判定勝ちし防衛を果たした後、オクタゴンに両ベルトを置いて引退を発表し王座返上。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: ESPN公式: 23勝5敗0分</span></p>
       <p><strong>復帰への姿勢と発言:</strong> 『Deep Waters』等の番組内で「王座を獲得したら、確実に防衛戦を行う」と引退撤回を明言。また、離れていた期間について「燃え尽き症候群（burned out）を感じており、休養が必要だった」と明かし、「ハリソンだけが復帰の理由ではなく、オクタゴンから離れていること自体が辛かったため、どのみち復帰していた」と語っている。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: UFC公式ポッドキャスト『Deep Waters』</span></p>
 
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Irene Aldana</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R5）</span>
+                <span class="fight-event-date">UFC 289 (2023-06-10)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Julianna Peña</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R5）</span>
+                <span class="fight-event-date">UFC 277 (2022-07-30)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Julianna Peña</span>
+                <span class="fight-method">一本（サブミッション）（R2 3:26）</span>
+                <span class="fight-event-date">UFC 269 (2021-12-11)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/2516131" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -1267,6 +1507,43 @@ html {
       <div class="fighter-bio">
         <p>ブラジル出身の卓越したグラップリング力と打撃のバランスを誇るミドル級トップコンテンダー。[ESPN公式: 18勝2敗0分]</p>
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Reinier de Ridder</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 326 (2026-03-07)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Nassourdine Imavov</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R5）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-09-06)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Jared Cannonier</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R5）</span>
+                <span class="fight-event-date">UFC Fight Night (2024-08-24)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4835137" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/4835137" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Caio Borralho &rarr;</a>
@@ -1290,6 +1567,43 @@ html {
       </div>
       <div class="fighter-bio">
         <p>元キックボクシング世界最高峰コンペティター。長身から繰り出される精緻なストライキングが武器。[ESPN公式: 11勝3敗0分]</p>
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Djorden Santos</span>
+                <span class="fight-method">KO/TKO（R1 4:25）</span>
+                <span class="fight-event-date">Noche UFC (2026-09-12)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Mansur Abdul-Malik</span>
+                <span class="fight-method">KO/TKO（R3 3:39）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-03-28)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Azamat Bekoev</span>
+                <span class="fight-method">KO/TKO（R3 0:55）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-10-18)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5149815" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -1439,6 +1753,43 @@ html {
       <div class="fighter-bio">
         <p>セルビア出身、KO率の極めて高い爆発的なストライカー。[ESPN公式: 14勝3敗0分]</p>
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Daniel Rodriguez</span>
+                <span class="fight-method">KO/TKO（R1 0:30）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-08-01)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Geoff Neal</span>
+                <span class="fight-method">KO/TKO（R1 1:19）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-02-21)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Muslim Salikhov</span>
+                <span class="fight-method">KO/TKO（R1 1:03）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-11-08)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4685870" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/4685870" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Uroš Medić &rarr;</a>
@@ -1462,6 +1813,43 @@ html {
       </div>
       <div class="fighter-bio">
         <p>長身・長リーチを活かした型破りな打撃と柔術黒帯の寝技を誇る名物ベテラン。[ESPN公式: 29勝15敗0分]</p>
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Randy Brown</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 327 (2026-04-11)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Mike Malott</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-10-18)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Daniel Rodriguez</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 318 (2025-07-19)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/3943695" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -1611,6 +1999,43 @@ html {
       <div class="fighter-bio">
         <p>10戦全勝の無敗レコードを誇るフライ級屈指の超新星プロスペクト。[ESPN公式: 10勝0敗0分]</p>
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Nilson Rojas</span>
+                <span class="fight-method">KO/TKO（R2 2:28）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-08-29)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Mridul Saikia</span>
+                <span class="fight-method">KO/TKO（R1 0:45）</span>
+                <span class="fight-event-date">Dana White's Contender Series (2026-08-11)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Renaldy Manse</span>
+                <span class="fight-method">KO/TKO（R1 2:47）</span>
+                <span class="fight-event-date">CFFC 149 (2025-12-20)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5264405" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/5264405" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Bilal Hasan &rarr;</a>
@@ -1634,6 +2059,43 @@ html {
       </div>
       <div class="fighter-bio">
         <p>タフなスクランブル力とアグレッシブな打撃でメインカードに抜擢された実力派。[ESPN公式: 11勝4敗0分]</p>
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Rei Tsuruya</span>
+                <span class="fight-method">一本（サブミッション）（R1 3:19）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-05-30)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Daniel Barez</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-05-16)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Alden Coria</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-02-21)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5218137" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -1792,6 +2254,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Eric McConico</span>
+                <span class="fight-method">KO/TKO（R1 1:38）</span>
+                <span class="fight-event-date">UFC 330 (2026-08-15)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Cody Brundage</span>
+                <span class="fight-method">判定2-1（スプリット）（R3）</span>
+                <span class="fight-event-date">UFC 326 (2026-03-07)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Sedriques Dumas</span>
+                <span class="fight-method">一本（サブミッション）（R2 1:25）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-11-01)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5302831" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/5302831" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Donte Johnson &rarr;</a>
@@ -1815,6 +2314,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Damian Pinas</span>
+                <span class="fight-method">KO/TKO（R1 4:44）</span>
+                <span class="fight-event-date">UFC 329 (2026-07-11)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Cezary Oleksiejczuk</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-12-14)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Abdul Razak Alhassan</span>
+                <span class="fight-method">KO/TKO（R1 4:16）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-01-11)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5144068" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -1983,6 +2519,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Jared Gordon</span>
+                <span class="fight-method">一本（サブミッション）（R1 3:29）</span>
+                <span class="fight-event-date">UFC 328 (2026-05-09)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Chase Hooper</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 314 (2025-04-12)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Damon Jackson</span>
+                <span class="fight-method">一本（サブミッション）（R1 2:44）</span>
+                <span class="fight-event-date">UFC 309 (2024-11-16)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/2335718" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/2335718" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Jim Miller &rarr;</a>
@@ -2006,6 +2579,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. King Green</span>
+                <span class="fight-method">KO/TKO（R1 4:59）</span>
+                <span class="fight-event-date">UFC 329 (2026-07-11)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Kyle Nelson</span>
+                <span class="fight-method">KO/TKO（R1 0:24）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-03-28)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Chris Duncan</span>
+                <span class="fight-method">一本（サブミッション）（R1 2:30）</span>
+                <span class="fight-event-date">UFC 323 (2025-12-06)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4425604" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -2174,6 +2784,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Michael Johnson</span>
+                <span class="fight-method">KO/TKO（R2 1:53）</span>
+                <span class="fight-event-date">UFC 326 (2026-03-07)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Kyle Prepolec</span>
+                <span class="fight-method">KO/TKO（R3 1:16）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-10-18)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Manuel Torres</span>
+                <span class="fight-method">KO/TKO（R1 1:45）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-03-29)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/2951202" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/2951202" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Drew Dober &rarr;</a>
@@ -2197,6 +2844,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Renato Moicano</span>
+                <span class="fight-method">一本（サブミッション）（R2 3:14）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-04-04)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Terrance McKinney</span>
+                <span class="fight-method">一本（サブミッション）（R1 2:30）</span>
+                <span class="fight-event-date">UFC 323 (2025-12-06)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Mateusz Rębecki</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-08-02)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4867356" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -2365,6 +3049,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Gabriel Bonfim</span>
+                <span class="fight-method">判定2-1（スプリット）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-07-12)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Joaquin Buckley</span>
+                <span class="fight-method">KO/TKO（R3 2:17）</span>
+                <span class="fight-event-date">UFC 307 (2024-10-05)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Shavkat Rakhmonov</span>
+                <span class="fight-method">一本（サブミッション）（R2 4:56）</span>
+                <span class="fight-event-date">UFC 296 (2023-12-16)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/2615077" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/2615077" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Stephen Thompson &rarr;</a>
@@ -2388,6 +3109,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Francisco Prado</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 327 (2026-04-11)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Daniel Frunza</span>
+                <span class="fight-method">一本（サブミッション）（R3 4:29）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-11-01)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Mike Malott</span>
+                <span class="fight-method">KO/TKO（R2 0:26）</span>
+                <span class="fight-event-date">UFC 315 (2025-05-10)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4416297" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -2561,6 +3319,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Gauge Young</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-04-26)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Darrius Flowers</span>
+                <span class="fight-method">一本（サブミッション）（R2 1:46）</span>
+                <span class="fight-event-date">UFC Fight Night (2024-07-13)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Genaro Valdez</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2023-07-15)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5037883" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/5037883" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Evan Elder &rarr;</a>
@@ -2584,6 +3379,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Chasen Blair</span>
+                <span class="fight-method">KO/TKO（R1 2:01）</span>
+                <span class="fight-event-date">Dana White's Contender Series (2025-09-10)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Evaldo dos Santos</span>
+                <span class="fight-method">KO/TKO（R1 0:54）</span>
+                <span class="fight-event-date">Thunder Fight 47 (2025-03-30)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Severino Neto</span>
+                <span class="fight-method">KO/TKO（R2 2:40）</span>
+                <span class="fight-event-date">JuaFight 1 (2024-06-01)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5293557" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -2752,6 +3584,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Malcolm Wellmaker</span>
+                <span class="fight-method">一本（サブミッション）（R2 4:08）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-05-16)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Kwon Won Il</span>
+                <span class="fight-method">KO/TKO（R2 4:58）</span>
+                <span class="fight-event-date">Dana White's Contender Series (2025-10-15)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Uriel Cossio</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R5）</span>
+                <span class="fight-event-date">Lux Fight League 50 (2025-02-21)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5310574" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/5310574" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Juan Diaz &rarr;</a>
@@ -2775,6 +3644,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. John Castaneda</span>
+                <span class="fight-method">判定2-1（スプリット）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-09-26)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Da'Mon Blackshear</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-04-26)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Kleydson Rodrigues</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2024-05-18)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/3154389" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -2938,6 +3844,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Ailin Perez</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-02-28)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Yana Santos</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC 320 (2025-10-04)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Ketlen Vieira</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R3）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-05-31)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4334306" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/4334306" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Macy Chiasson &rarr;</a>
@@ -2961,6 +3904,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Melissa Mullins</span>
+                <span class="fight-method">一本（サブミッション）（R1 3:16）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-06-20)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Montse Rendon</span>
+                <span class="fight-method">一本（サブミッション）（R1 2:07）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-03-14)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Irina Alekseeva</span>
+                <span class="fight-method">一本（サブミッション）（R2 2:14）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-10-11)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/5310274" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         
@@ -3129,6 +4109,43 @@ html {
       <div class="fighter-bio">
         
       </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Jim Miller</span>
+                <span class="fight-method">一本（サブミッション）（R1 3:29）</span>
+                <span class="fight-event-date">UFC 328 (2026-05-09)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Rafa Garcia</span>
+                <span class="fight-method">KO/TKO（R3 2:27）</span>
+                <span class="fight-event-date">Noche UFC (2025-09-13)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Thiago Moisés</span>
+                <span class="fight-method">KO/TKO（R1 3:37）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-05-17)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/3894823" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
+      </div>
       <div class="fighter-links">
         
         <a href="https://www.espn.com/mma/fighter/_/id/3894823" target="_blank" rel="noopener noreferrer" class="source-link espn-link"><span class="source-badge espn-badge">ESPN公式</span> ESPN Profile: Jared Gordon &rarr;</a>
@@ -3152,6 +4169,43 @@ html {
       </div>
       <div class="fighter-bio">
         
+      </div>
+            <!-- RECENT 3 FIGHTS -->
+      <div class="recent-fights-block">
+        <div class="recent-fights-title">
+          <span>🥊 直近3試合の戦績（Recent 3 Fights）</span>
+        </div>
+        <ul class="recent-fights-list">
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-loss">LOSS</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Arnold Allen</span>
+                <span class="fight-method">判定3-0（ユナニマス）（R5）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-05-16)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Dan Ige</span>
+                <span class="fight-method">KO/TKO（R1 4:56）</span>
+                <span class="fight-event-date">UFC Fight Night (2026-02-21)</span>
+              </div>
+            </li>
+            <li class="recent-fight-item">
+              <span class="fight-res-badge res-win">WIN</span>
+              <div class="fight-detail-wrap">
+                <span class="fight-opp">vs. Morgan Charrière</span>
+                <span class="fight-method">KO/TKO（R1 1:14）</span>
+                <span class="fight-event-date">UFC Fight Night (2025-12-14)</span>
+              </div>
+            </li>
+        </ul>
+        <div class="past-fights-link-box">
+          <a href="https://www.espn.com/mma/fighter/history/_/id/4425763" target="_blank" rel="noopener noreferrer" class="past-fights-link">
+            📜 3試合以前の過去全対戦履歴・詳細戦績は ESPN公式Fight Historyへ &rarr;
+          </a>
+        </div>
       </div>
       <div class="fighter-links">
         

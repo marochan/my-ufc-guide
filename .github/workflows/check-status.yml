@@ -1,0 +1,27 @@
+name: UFC 334 Card Status Checker
+
+on:
+  schedule:
+    # 2時間おきに自動定期実行（UTC偶数時 0分 = 日本時間 奇数時 9:00, 11:00, 13:00...）
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # GitHubのWeb画面からいつでも手動ワンクリック実行可能
+
+jobs:
+  check-status:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run UFC 334 Status Checker
+        run: |
+          python check_ufc334_status.py

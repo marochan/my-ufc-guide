@@ -2,13 +2,14 @@ import urllib.request
 import json
 import re
 import sys
+import os
 
 print("=========================================================")
 print("🔍 UFC 334 公式ステータス＆対戦カード自動差分チェッカー")
 print("データソース: ESPN MMA Scoreboard API (一次情報)")
 print("=========================================================\n")
 
-# 1. Load current fighters from index.html
+# 1. サイト掲載のカード一覧
 bouts_in_html = [
     ('Ciryl Gane', 'Josh Hokit'),
     ('Kayla Harrison', 'Amanda Nunes'),
@@ -25,9 +26,11 @@ bouts_in_html = [
     ('Jared Gordon', 'Melquizael Costa')
 ]
 
-# 2. Fetch live scoreboard from ESPN API
 url = 'https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard'
 req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+
+has_difference = False
+summary_lines = []
 
 try:
     with urllib.request.urlopen(req, timeout=15) as resp:
@@ -54,8 +57,6 @@ try:
             live_pairings.append((fighters, status_type))
             live_fighters.extend(fighters)
         
-        # Check differences
-        all_matched = True
         print("【全試合ステータス照合結果】")
         for i, (f1, f2) in enumerate(bouts_in_html, 1):
             matched = False
@@ -68,28 +69,49 @@ try:
                     tag = "正常一致"
                     if "Adrian Yañez" in " ".join(lf):
                         tag = "スクランブル代打参戦（公式反映待ち）"
-                    print(f"  ✅ 第{i}戦: {f1} vs {f2_candidates[0]} -> [{tag} / {st}]")
+                    line = f"✅ 第{i}戦: {f1} vs {f2_candidates[0]} -> [{tag} / {st}]"
+                    print(f"  {line}")
+                    summary_lines.append(f"- {line}")
                     break
                 elif has_f1 or has_f2:
                     matched = True
-                    all_matched = False
-                    print(f"  ⚠️ 【カード変更検知】 第{i}戦: {f1} vs {f2}")
-                    print(f"     -> ESPN公式の最新組み合わせ: {' vs '.join(lf)} [状態: {st}]")
+                    has_difference = True
+                    line = f"⚠️ 【カード変更検知】 第{i}戦: {f1} vs {f2} -> 最新: {' vs '.join(lf)} [{st}]"
+                    print(f"  {line}")
+                    summary_lines.append(f"- **{line}**")
                     break
             
             if not matched:
-                all_matched = False
-                print(f"  ❌ 【未検出/中止の可能性】 第{i}戦: {f1} vs {f2} がESPN公式で見つかりません")
+                has_difference = True
+                line = f"❌ 【未検出/中止の可能性】 第{i}戦: {f1} vs {f2} がESPN公式で見つかりません"
+                print(f"  {line}")
+                summary_lines.append(f"- **{line}**")
         
         print("\n---------------------------------------------------------")
-        if all_matched and len(competitions) == 13:
+        if not has_difference and len(competitions) == 13:
             print("🎉 【公式確認完了】全13試合すべてESPN公式データと照合確認済みです。")
             print("   急な試合中止（Cancelled）は発生していません。")
+            result_status = "SUCCESS"
         else:
             print("⚠️ 【要確認】ESPN公式データとの間に差分が検知されました。")
             print("   上記の差分詳細を確認し、index.htmlの更新を行ってください。")
+            result_status = "WARNING"
         print("---------------------------------------------------------")
+
+        # GitHub Actions Step Summary 出力
+        step_summary_file = os.environ.get('GITHUB_STEP_SUMMARY')
+        if step_summary_file:
+            with open(step_summary_file, 'a', encoding='utf-8') as f_sum:
+                f_sum.write(f"## 🔍 UFC 334 公式ステータス自動照合レポート ({result_status})\n\n")
+                f_sum.write(f"- **対象イベント**: {event_name} ({event_date})\n")
+                f_sum.write(f"- **照合ステータス**: {'✅ 全試合一致・変更なし' if not has_difference else '⚠️ カード変更/要確認項目あり'}\n\n")
+                f_sum.write("### 照合結果一覧\n")
+                for s in summary_lines:
+                    f_sum.write(s + "\n")
+
+        # 差分検知時は exit code 0 で正常終了させつつ警告を出力
+        sys.exit(0)
 
 except Exception as e:
     print(f"❌ 通信エラー: {e}")
-    print("※インターネット接続を確認するか、BypassSandboxで実行してください。")
+    sys.exit(1)

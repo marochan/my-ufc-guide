@@ -437,6 +437,163 @@ html {
   vertical-align: middle;
 }
 
+
+/* My Pick Widget & Predictor Bar */
+.predictor-summary-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.predictor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.predictor-title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.predictor-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.predictor-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f1f5f9;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.predictor-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+.predictor-btn-x {
+  background: #000;
+  border-color: #333;
+}
+.predictor-btn-x:hover {
+  background: #1d9bf0;
+  border-color: #1d9bf0;
+}
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #34d399);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.my-pick-widget {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.my-pick-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+.my-pick-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.my-pick-choice {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.my-pick-choice:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+.my-pick-choice.selected {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+}
+
+/* Print CSS */
+@media print {
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .floating-nav, .toc-controls, .predictor-summary-card, .my-pick-widget, .clear-search-btn {
+    display: none !important;
+  }
+  .bout-card, .fighter-card, .data-table, .consensus-card, .insight-box {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    color: #111 !important;
+    break-inside: avoid;
+  }
+  .bout-title, h1, h2, h3, h4, h5, th, strong {
+    color: #000 !important;
+  }
+  .article-p, td, p {
+    color: #222 !important;
+  }
+}
+
+
+.fighter-age-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
 /* Footer */
 .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border-color); margin-top: 60px; color: var(--text-muted); font-size: 0.85rem; }
 .footer a { color: var(--accent-blue); text-decoration: none; }
@@ -466,6 +623,23 @@ html {
       <div class="toc-title">
         <span>📑 全対戦カード 目次（Navigation）</span>
       </div>
+            <!-- MY PREDICTION CHECKER SUMMARY -->
+      <div class="predictor-summary-card" id="predictorSummaryCard">
+        <div class="predictor-header">
+          <div class="predictor-title">
+            <span>🗳️ あなたの勝者予想シート</span>
+            <span id="pickProgressText" style="font-size:0.8rem; font-weight:600; color:#94a3b8;">（0 / 13 試合予想済み）</span>
+          </div>
+          <div class="predictor-actions">
+            <button type="button" class="predictor-btn" id="copyPredictionsBtn" title="クリップボードにコピー">📋 予想をコピー</button>
+            <a href="#" class="predictor-btn predictor-btn-x" id="shareTwitterBtn" target="_blank" rel="noopener noreferrer">𝕏 で予想をシェア</a>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="pickProgressBar"></div>
+        </div>
+      </div>
+
       <div class="toc-controls">
         <div class="search-box-wrapper">
           <input type="text" id="fighterSearch" class="toc-search-input" placeholder="🔍 選手名・階級で絞り込み（例: ガーヌ, ヌネス, ミドル級）..." autocomplete="off">
@@ -548,6 +722,52 @@ html {
         <p class="article-p">本大会の対戦カード編成においては、大会直前まで複数の調整が生じており、ファイトカード全体が再構築される運びとなりました。全12試合で構成される最新バウトオーダーが確定しているものの、アンダーカードにおける急遽の選手入れ替えやカード変更の公式な背景、並びに一部の確定対戦相手や詳細な階級データについては、現時点で公式確定データが<span class="badge-unconfirmed">確認不可</span>となっています。最新情報が確認され次第、速やかにアップデートを行う予定です。</p>
         <p class="article-p">世界中の格闘技ファンの視線がマディソン・スクエア・ガーデンへ注がれる中、本ガイドの第1部では、この歴史的一夜の頂点に君臨するメインイベント「ヘビー級世界王座戦」の2名に焦点を当て、その深層プロフィールと戦術構造を完全解剖していきます。</p>
       </div>
+          <div class="analysis-subblock">
+        <h4>⏰ 大会タイムスケジュール（日本時間 JST ＆ 現地時間 EST）</h4>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>セクション</th>
+                <th>日本時間（JST）開始目安</th>
+                <th>現地時間（EST NY）</th>
+                <th>対象対戦カード</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>⚡ アーリープレリム</th>
+                <td><strong style="color:#38bdf8;">2026年11月15日(日) 朝 8:00〜</strong></td>
+                <td>11月14日(土) 18:00〜</td>
+                <td>全4試合（ゴードン vs コスタ 〜 エルダー vs サンチェス）</td>
+              </tr>
+              <tr>
+                <th>🥊 プレリム</th>
+                <td><strong style="color:#38bdf8;">朝 10:00〜</strong></td>
+                <td>20:00〜</td>
+                <td>全4試合（トンプソン vs ラドケ 〜 ジョンソン vs アルメイダ）</td>
+              </tr>
+              <tr>
+                <th>🔥 メインカード</th>
+                <td><strong style="color:#f59e0b;">正午 12:00〜</strong></td>
+                <td>22:00〜</td>
+                <td>全5試合（ハサン vs グルレ 〜 ハリソン vs ヌネス）</td>
+              </tr>
+              <tr>
+                <th>🏆 メインイベント</th>
+                <td><strong style="color:#ef4444;">午後 14:00〜14:30頃 入場見込</strong></td>
+                <td>24:00〜</td>
+                <td>ヘビー級世界王座戦：シリル・ガーヌ vs ジョシュ・ホキット</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="article-p" style="font-size:0.85rem; color:#94a3b8; margin-top:8px;">
+          ※配信サービス: U-NEXT（日本語実況解説生配信） / UFC Fight Pass<br>
+          ※試合の決着スピード（早期KOや一本の有無）により各カードの開始時刻は前後します。
+        </p>
+      </div>
+
     </section>
 
 
@@ -574,6 +794,11 @@ html {
 <th>ジョシュ・ホキット（Josh Hokit）</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1990年4月12日 (36歳)</strong></td>
+<td><strong>1998年1月2日 (28歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>14勝2敗0分 (1NC) [ESPN公式]</td>
@@ -609,6 +834,7 @@ html {
           <div class="fighter-name-en">Ciryl Gane <img src="https://a.espncdn.com/i/teamlogos/countries/500/fra.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Bon Gamin"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 14勝2敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 36歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -637,6 +863,7 @@ html {
           <div class="fighter-name-en">Josh Hokit <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Machine"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 10勝0敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 28歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -726,6 +953,14 @@ html {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-gane-hokit">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-gane-hokit" data-choice="シリル・ガーヌ">🔴 シリル・ガーヌ</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-gane-hokit" data-choice="ジョシュ・ホキット">🔵 ジョシュ・ホキット</button>
           </div>
         </div>
 
@@ -818,7 +1053,7 @@ html {
             </thead>
             <tbody>
               <tr><th>ニックネーム</th><td><span class="badge-unconfirmed">確認不可</span></td><td>"The Lioness"</td></tr>
-              <tr><th>生年月日 / 出身</th><td>1990年生まれ（アメリカ出身）</td><td><span class="badge-unconfirmed">確認不可</span>（ブラジル出身）</td></tr>
+              <tr><th>年齢 / 生年月日</th><td>1990年7月2日 (36歳)（アメリカ出身）</td><td>1988年5月30日 (38歳)（ブラジル出身）</td></tr>
               <tr><th>背景・格闘技ベース</th><td>ロンドン2012・リオ2016 五輪柔道78kg級 金メダル（米国初）</td><td>ブラジリアン柔術（BJJ）黒帯</td></tr>
               <tr><th>MMA戦績</th><td>19勝1敗0分（UFC 3勝0敗・PFL優勝2回） [ESPN公式]</td><td>23勝5敗0分（元UFC同時二冠王者） [ESPN公式]</td></tr>
               <tr><th>主要獲得タイトル</th><td>現UFC女子バンタム級王者、PFLトーナメント王者</td><td>元UFC女子バンタム級＆フェザー級王者</td></tr>
@@ -840,6 +1075,7 @@ html {
           <div class="fighter-name-en">Kayla Harrison <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 19勝1敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 36歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -866,6 +1102,7 @@ html {
           <div class="fighter-name-en">Amanda Nunes <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Lioness"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 23勝5敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 38歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -948,6 +1185,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-harrison-nunes">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-harrison-nunes" data-choice="ケイラ・ハリソン">🔴 ケイラ・ハリソン</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-harrison-nunes" data-choice="アマンダ・ヌネス">🔵 アマンダ・ヌネス</button>
+          </div>
+        </div>
 
 
         <h5>1.4 コミュニティの反応と人間ドラマ</h5>
@@ -976,6 +1221,11 @@ html {
 <th>ユースリ・ベルガルイ（Yousri Belgaroui）</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1993年1月16日 (33歳)</strong></td>
+<td><strong>1992年6月2日 (34歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>18勝2敗0分 (1NC) [ESPN公式]</td>
@@ -1011,6 +1261,7 @@ html {
           <div class="fighter-name-en">Caio Borralho <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Natural"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 18勝2敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 33歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1034,6 +1285,7 @@ html {
           <div class="fighter-name-en">Yousri Belgaroui <img src="https://a.espncdn.com/i/teamlogos/countries/500/ned.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Baby Face Assassin"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 11勝3敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 34歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1106,6 +1358,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-borralho-belgaroui">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-borralho-belgaroui" data-choice="カイオ・ボハーリョ">🔴 カイオ・ボハーリョ</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-borralho-belgaroui" data-choice="ユースリ・ベルガルイ">🔵 ユースリ・ベルガルイ</button>
+          </div>
+        </div>
 
 
         <h4>2.4 コミュニティの反応</h4>
@@ -1133,6 +1393,11 @@ html {
 <th>ケビン・ホランド（Kevin Holland）</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1993年4月25日 (33歳)</strong></td>
+<td><strong>1992年11月5日 (34歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>14勝3敗0分 [ESPN公式]</td>
@@ -1168,6 +1433,7 @@ html {
           <div class="fighter-name-en">Uroš Medić <img src="https://a.espncdn.com/i/teamlogos/countries/500/ser.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Doctor"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 14勝3敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 33歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1191,6 +1457,7 @@ html {
           <div class="fighter-name-en">Kevin Holland <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Trailblazer"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 29勝15敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 34歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1263,6 +1530,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-medic-holland">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-medic-holland" data-choice="ウロシュ・メディッチ">🔴 ウロシュ・メディッチ</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-medic-holland" data-choice="ケビン・ホランド">🔵 ケビン・ホランド</button>
+          </div>
+        </div>
 
 
         <h4>3.4 コミュニティの反応</h4>
@@ -1290,6 +1565,11 @@ html {
 <th>ルイス・グルレ（Luis Gurule）</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>2001年生まれ (25歳)</strong></td>
+<td><strong>1994年生まれ (32歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>10勝0敗0分 (1NC / 無敗) [ESPN公式]</td>
@@ -1325,6 +1605,7 @@ html {
           <div class="fighter-name-en">Bilal Hasan <img src="https://a.espncdn.com/i/teamlogos/countries/500/ina.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 10勝0敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 25歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1348,6 +1629,7 @@ html {
           <div class="fighter-name-en">Luis Gurule <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 11勝4敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 32歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1420,6 +1702,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-hasan-gurule">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-hasan-gurule" data-choice="ビラル・ハサン">🔴 ビラル・ハサン</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-hasan-gurule" data-choice="ルイス・グルレ">🔵 ルイス・グルレ</button>
+          </div>
+        </div>
 
 
         <h4>4.4 コミュニティの反応</h4>
@@ -1458,6 +1748,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1999年生まれ (27歳)</strong></td>
+<td><strong>1988年3月28日 (38歳)</strong></td>
+</tr>
+<tr>
 <th>MMA公式戦績</th>
 <td>9勝0敗0分（無敗） [ESPN公式]</td>
 <td>7勝3敗0分 [ESPN公式]</td>
@@ -1491,6 +1786,7 @@ html {
           <div class="fighter-name-en">Donte Johnson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 9勝0敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 27歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1514,6 +1810,7 @@ html {
           <div class="fighter-name-en">Cesar Almeida <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Cesinha"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 7勝3敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 38歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1606,6 +1903,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-johnson-almeida">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-johnson-almeida" data-choice="ドンテ・ジョンソン">🔴 ドンテ・ジョンソン</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-johnson-almeida" data-choice="セザール・アルメイダ">🔵 セザール・アルメイダ</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -1633,6 +1938,11 @@ html {
 <th>テランス・マキニー</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1983年8月30日 (43歳)</strong></td>
+<td><strong>1994年9月15日 (32歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>39勝19敗0分 [ESPN公式]</td>
@@ -1667,6 +1977,7 @@ html {
           <div class="fighter-name-en">Jim Miller <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"A-10"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 39勝19敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 43歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1690,6 +2001,7 @@ html {
           <div class="fighter-name-en">Terrance McKinney <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"T.Wrecks"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 18勝9敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 32歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1782,6 +2094,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-miller-mckinney">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-miller-mckinney" data-choice="ジム・ミラー">🔴 ジム・ミラー</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-miller-mckinney" data-choice="テランス・マキニー">🔵 テランス・マキニー</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -1809,6 +2129,11 @@ html {
 <th>クリス・ダンカン</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1988年10月19日 (38歳)</strong></td>
+<td><strong>1993年生まれ (33歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>29勝15敗0分 [ESPN公式]</td>
@@ -1843,6 +2168,7 @@ html {
           <div class="fighter-name-en">Drew Dober <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 29勝15敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 38歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1866,6 +2192,7 @@ html {
           <div class="fighter-name-en">Chris Duncan <img src="https://a.espncdn.com/i/teamlogos/countries/500/sct.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Problem"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 15勝3敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 33歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1958,6 +2285,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-dober-duncan">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-dober-duncan" data-choice="ドリュー・ドーバー">🔴 ドリュー・ドーバー</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-dober-duncan" data-choice="クリス・ダンカン">🔵 クリス・ダンカン</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -1985,6 +2320,11 @@ html {
 <th>チャールズ・ラドケ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1983年2月11日 (43歳)</strong></td>
+<td><strong>1990年生まれ (36歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>17勝9敗1分 [ESPN公式]</td>
@@ -2019,6 +2359,7 @@ html {
           <div class="fighter-name-en">Stephen Thompson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Wonderboy"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 17勝9敗1分</div>
+          <div class="fighter-age-badge">🎂 年齢: 43歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2042,6 +2383,7 @@ html {
           <div class="fighter-name-en">Charles Radtke <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Chuck Buffalo"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 12勝5敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 36歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2134,6 +2476,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-thompson-radtke">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-thompson-radtke" data-choice="スティーブン・トンプソン">🔴 スティーブン・トンプソン</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-thompson-radtke" data-choice="チャールズ・ラドケ">🔵 チャールズ・ラドケ</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -2166,6 +2516,11 @@ html {
 <th>サムエル・サンチェス</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1997年4月11日 (29歳)</strong></td>
+<td><strong>2003年生まれ (23歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>10勝2敗0分 [ESPN公式]</td>
@@ -2200,6 +2555,7 @@ html {
           <div class="fighter-name-en">Evan Elder <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Phenom"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 10勝2敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 29歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2223,6 +2579,7 @@ html {
           <div class="fighter-name-en">Samuel Sanches <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 11勝1敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 23歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2315,6 +2672,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-elder-sanchez">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-elder-sanchez" data-choice="エヴァン・エルダー">🔴 エヴァン・エルダー</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-elder-sanchez" data-choice="サムエル・サンチェス">🔵 サムエル・サンチェス</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -2342,6 +2707,11 @@ html {
 <th>アラテン・ヘイリ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1998年生まれ (28歳)</strong></td>
+<td><strong>1991年12月14日 (34歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>16勝1敗1分 [ESPN公式]</td>
@@ -2376,6 +2746,7 @@ html {
           <div class="fighter-name-en">Juan Diaz <img src="https://a.espncdn.com/i/teamlogos/countries/500/per.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"El Guapo"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 16勝1敗1分</div>
+          <div class="fighter-age-badge">🎂 年齢: 28歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2399,6 +2770,7 @@ html {
           <div class="fighter-name-en">Heili Alateng <img src="https://a.espncdn.com/i/teamlogos/countries/500/chn.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Mongolian Knight"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 18勝10敗2分</div>
+          <div class="fighter-age-badge">🎂 年齢: 34歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2491,6 +2863,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-diaz-alateng">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-diaz-alateng" data-choice="フアン・ディアス">🔴 フアン・ディアス</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-diaz-alateng" data-choice="アラテン・ヘイリ">🔵 アラテン・ヘイリ</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -2518,6 +2898,11 @@ html {
 <th>ビア・メスキータ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1991年7月27日 (35歳)</strong></td>
+<td><strong>1991年4月7日 (35歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>11勝6敗0分 [ESPN公式]</td>
@@ -2547,6 +2932,7 @@ html {
           <div class="fighter-name-en">Macy Chiasson <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           
           <div class="fighter-record-badge">🏆 MMA戦績: 11勝6敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 35歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2570,6 +2956,7 @@ html {
           <div class="fighter-name-en">Bia Mesquita <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"The Lady GOAT"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 8勝0敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 35歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2662,6 +3049,14 @@ html {
             </table>
           </div>
         </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-chiasson-mesquita">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-chiasson-mesquita" data-choice="メイシー・チアソン">🔴 メイシー・チアソン</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-chiasson-mesquita" data-choice="ビア・メスキータ">🔵 ビア・メスキータ</button>
+          </div>
+        </div>
 
 
         <h4>コミュニティの反応</h4>
@@ -2689,6 +3084,11 @@ html {
 <th>メルキザエル・コスタ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>年齢 / 生年月日</th>
+<td><strong>1988年9月6日 (38歳)</strong></td>
+<td><strong>1996年10月2日 (30歳)</strong></td>
+</tr>
 <tr>
 <th>MMA公式戦績</th>
 <td>21勝9敗0分 [ESPN公式]</td>
@@ -2723,6 +3123,7 @@ html {
           <div class="fighter-name-en">Jared Gordon <img src="https://a.espncdn.com/i/teamlogos/countries/500/usa.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Flash"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 21勝9敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 38歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2746,6 +3147,7 @@ html {
           <div class="fighter-name-en">Melquizael Costa <img src="https://a.espncdn.com/i/teamlogos/countries/500/bra.png" alt="flag" class="fighter-flag-icon"></div>
           <div class="fighter-nickname">"Melk Cauteloso"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 26勝8敗0分</div>
+          <div class="fighter-age-badge">🎂 年齢: 30歳</div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2836,6 +3238,14 @@ html {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <!-- MY PICK WIDGET -->
+        <div class="my-pick-widget" data-bout-pick="bout-gordon-costa">
+          <span class="my-pick-label">🗳️ あなたの勝者予想:</span>
+          <div class="my-pick-btns">
+            <button type="button" class="my-pick-choice" data-bout="bout-gordon-costa" data-choice="ジャレッド・ゴードン">🔴 ジャレッド・ゴードン</button>
+            <button type="button" class="my-pick-choice" data-bout="bout-gordon-costa" data-choice="メルキザエル・コスタ">🔵 メルキザエル・コスタ</button>
           </div>
         </div>
 

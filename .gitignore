@@ -1,0 +1,13 @@
+# Local only: 元原稿
+ufc/
+
+# Local only: 作業報告（NotebookLM用）
+work_records/
+
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+venv/

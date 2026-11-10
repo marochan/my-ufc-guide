@@ -109,6 +109,56 @@ try:
                 for s in summary_lines:
                     f_sum.write(s + "\n")
 
+        # 差分検知時、GitHub Issue を自動起票してユーザーにプッシュ通知
+        github_token = os.environ.get('GITHUB_TOKEN')
+        github_repo = os.environ.get('GITHUB_REPOSITORY')
+        if has_difference and github_token and github_repo:
+            print("\n📢 差分検知に伴うGitHub Issue自動通知を処理中...")
+            try:
+                # 既存の未解決Issueを確認（重複通知防止）
+                issues_url = f"https://api.github.com/repos/{github_repo}/issues?state=open"
+                check_req = urllib.request.Request(issues_url, headers={
+                    'Authorization': f'token {github_token}',
+                    'Accept': 'application/vnd.github.v3+json',
+                    'User-Agent': 'UFC334-StatusChecker'
+                })
+                with urllib.request.urlopen(check_req, timeout=10) as resp_issue:
+                    open_issues = json.loads(resp_issue.read().decode('utf-8'))
+                    already_opened = any("UFC 334 カード変更検知" in iss.get('title', '') for iss in open_issues)
+                
+                if already_opened:
+                    print("ℹ️ 既にオープン状態の通知Issueが存在するため、新規起票はスキップしました。")
+                else:
+                    issue_title = "🚨 【要確認】UFC 334 カード変更または試合中止を検知しました"
+                    issue_body = (
+                        "## 🚨 UFC 334 公式ステータス変更検知通知\n\n"
+                        "ESPN MMA公式Scoreboard APIとの自動照合により、対戦カードの変更または試合中止の可能性が検知されました。\n\n"
+                        "### 🔍 検知された照合結果\n"
+                        + "\n".join(summary_lines) + "\n\n"
+                        "### 🛠 推奨される対応手順\n"
+                        "1. **帰宅後にPCで対応する場合（おすすめ）**:\n"
+                        "   - Antigravityを開き、「カード変更があったのでindex.htmlに反映して」と一言指示してください。新選手の公式顔写真・戦績・年齢・直近3試合データが全自動で反映されます。\n"
+                        "2. **外出先からスマホで即時対応する場合**:\n"
+                        "   - リポジトリの `index.html` 最上部にある `🚨 【大会直前・公式LIVE速報】` バナーに1行メモを追記してコミットしてください。\n\n"
+                        "> ※このIssueは GitHub Actions (check-status.yml) により自動起票されました。"
+                    )
+                    create_data = json.dumps({'title': issue_title, 'body': issue_body}).encode('utf-8')
+                    post_req = urllib.request.Request(
+                        f"https://api.github.com/repos/{github_repo}/issues",
+                        data=create_data,
+                        headers={
+                            'Authorization': f'token {github_token}',
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json',
+                            'User-Agent': 'UFC334-StatusChecker'
+                        }
+                    )
+                    with urllib.request.urlopen(post_req, timeout=10) as create_resp:
+                        if create_resp.status in (200, 201):
+                            print("✅ GitHub Issue を自動起票しました！スマホおよび登録メールへ通知が送信されます。")
+            except Exception as ie:
+                print(f"⚠️ Issue起票処理でエラーが発生しました (無視して続行): {ie}")
+
         # 差分検知時は exit code 0 で正常終了させつつ警告を出力
         sys.exit(0)
 

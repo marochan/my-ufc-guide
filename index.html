@@ -175,6 +175,11 @@ body { min-height: 100vh; padding: 0; margin: 0; background: radial-gradient(cir
 .espn-badge { background: #b91c1c; color: #fff; }
 .odds-badge { background: #059669; color: #fff; }
 .reddit-badge { background: var(--accent-reddit); color: #fff; }
+.rank-badge-group { display: inline-flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.rank-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.03em; }
+.rank-media { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.4); }
+.rank-meta { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+.rank-ur { background: rgba(255, 255, 255, 0.06); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.12); }
 .source-citation { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: #94a3b8; font-weight: 600; margin-left: 6px; vertical-align: middle; }
 .source-citation-icon { font-size: 0.75rem; }
 .badge-unconfirmed { background: rgba(148, 163, 184, 0.15); color: #94a3b8; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; border: 1px dashed #475569; }
@@ -904,6 +909,21 @@ html {
 
       <p class="article-p">過熱を極めるUFCヘビー級戦線、そして現代MMA界全体の今後の勢力図を占う上で、UFC 334はきわめて重要な戦略的位置づけを担う巨大イベントです。舞台となるのは、数々の伝説的名勝負を生み出してきた格闘技の最高峰、ニューヨーク州ニューヨークのマディソン・スクエア・ガーデン（MSG）。絶対的な技術を誇る王者と急速に頭角を現した新鋭の衝突、そして王座戦線を巡る確執と遺恨が交錯する今大会は、単なるタイトルマッチを超えた歴史的・記念碑的な意味合いを帯びています。</p>
       
+      <div class="analysis-subblock" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.3);border-radius:8px;padding:18px 20px;margin-bottom:28px;">
+        <h4 style="color:#d8b4fe;margin-bottom:8px;">📊 UFC公式二大ランキング体系（メディア投票 ＆ Meta AIアルゴリズム）について</h4>
+        <p class="article-p" style="margin-bottom:8px;">UFCでは2026年6月より、従来の記者投票による<strong>「公式メディアランキング（Media-voted Rankings）」</strong>に加え、Meta社とのパートナーシップにより開発された機械学習・統計モデル<strong>「Meta UFC Rankings」</strong>が公式導入されています。本観戦ガイドでは、ランカー全選手の正確な立ち位置を把握できるよう、両方の最新ランキングを併記表示しています。<span class="source-citation"><span class="source-citation-icon">📌</span> 出典: UFC公式 Rankings / Meta, Inc. 共同発表 (2026/06)</span></p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px;">
+          <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);padding:10px 14px;border-radius:6px;">
+            <strong style="color:#93c5fd;font-size:0.9rem;">🟦 公式メディアランキング (Media)</strong>
+            <p style="font-size:0.85rem;color:#cbd5e1;margin-top:4px;line-height:1.5;">MMA専門ジャーナリストの投票に基づく伝統的なランキング。歴史的実績やネームバリュー、話題性が反映されやすい。</p>
+          </div>
+          <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.3);padding:10px 14px;border-radius:6px;">
+            <strong style="color:#d8b4fe;font-size:0.9rem;">🟪 Meta UFC Rankings (Meta)</strong>
+            <p style="font-size:0.85rem;color:#cbd5e1;margin-top:4px;line-height:1.5;">Eloレーティングを基盤に、対戦相手の質・直近のアクティビティ・フィニッシュ率を重視。長期欠場にはディケイ（減衰ペナルティ）が自動適用される。</p>
+          </div>
+        </div>
+      </div>
+
       <div class="analysis-subblock">
         <h4>大会基本情報</h4>
         <div class="table-wrapper">
@@ -998,6 +1018,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: 王者 (C)</span> <span class="rank-badge rank-meta">Meta: 王者 (C)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: #8</span> <span class="rank-badge rank-meta">Meta: #5</span></div></td>
+</tr>
+<tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1990年4月12日 (36歳)</strong></td>
 <td><strong>1998年1月2日 (28歳)</strong></td>
@@ -1038,6 +1063,10 @@ html {
           <div class="fighter-nickname">"Bon Gamin"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 14勝2敗0分</div>
           <div class="fighter-age-badge">🎂 年齢: 36歳</div>
+          <div class="rank-badge-group" style="margin-top:6px;">
+            <span class="rank-badge rank-media">メディア: 王者 (C)</span>
+            <span class="rank-badge rank-meta">Meta: 王者 (C)</span>
+          </div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -1596,6 +1625,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: #5</span> <span class="rank-badge rank-meta">Meta: #4</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
+<tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1993年1月16日 (33歳)</strong></td>
 <td><strong>1992年6月2日 (34歳)</strong></td>
@@ -1849,6 +1883,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-meta">Meta: #12</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: #15</span> <span class="rank-badge rank-meta">Meta: #14</span></div></td>
+</tr>
+<tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1993年4月25日 (33歳)</strong></td>
 <td><strong>1992年11月5日 (34歳)</strong></td>
@@ -1889,6 +1928,10 @@ html {
           <div class="fighter-nickname">"The Doctor"</div>
           <div class="fighter-record-badge">🏆 MMA戦績: 14勝3敗0分</div>
           <div class="fighter-age-badge">🎂 年齢: 33歳</div>
+          <div class="rank-badge-group" style="margin-top:6px;">
+            <span class="rank-badge rank-ur">メディア: ランク外 (UR)</span>
+            <span class="rank-badge rank-meta">Meta: #12</span>
+          </div>
         </div>
       </div>
       <div class="fighter-bio">
@@ -2099,6 +2142,11 @@ html {
 <th>ルイス・グルレ（Luis Gurule）</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-meta">Meta: #15</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
 <tr>
 <th>年齢 / 生年月日</th>
 <td><strong>2001年生まれ (25歳)</strong></td>
@@ -2360,6 +2408,11 @@ html {
 <th>セザール・アルメイダ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
 <tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1999年生まれ (27歳)</strong></td>
@@ -2632,6 +2685,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
+<tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1983年8月30日 (43歳)</strong></td>
 <td><strong>1994年9月15日 (32歳)</strong></td>
@@ -2901,6 +2959,11 @@ html {
 <th>クリス・ダンカン</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
 <tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1988年10月19日 (38歳)</strong></td>
@@ -3175,6 +3238,11 @@ html {
 <th>チャールズ・ラドケ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: ランク外 (元#1)</span> <span class="rank-badge rank-meta">Meta: #13</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
 <tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1983年2月11日 (43歳)</strong></td>
@@ -3451,6 +3519,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
+<tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1997年4月11日 (29歳)</strong></td>
 <td><strong>2003年生まれ (23歳)</strong></td>
@@ -3720,6 +3793,11 @@ html {
 <th>アラテン・ヘイリ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
 <tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1998年生まれ (28歳)</strong></td>
@@ -3991,6 +4069,11 @@ html {
 </tr></thead>
 <tbody>
 <tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: #11</span> <span class="rank-badge rank-meta">Meta: #12</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-media">メディア: #12</span> <span class="rank-badge rank-meta">Meta: #9</span></div></td>
+</tr>
+<tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1991年7月27日 (35歳)</strong></td>
 <td><strong>1991年4月7日 (35歳)</strong></td>
@@ -4255,6 +4338,11 @@ html {
 <th>メルキザエル・コスタ</th>
 </tr></thead>
 <tbody>
+<tr>
+<th>UFC公式ランキング<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:normal;">(メディア / Meta AI)</span></th>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+<td><div class="rank-badge-group"><span class="rank-badge rank-ur">メディア: ランク外 (UR)</span> <span class="rank-badge rank-ur">Meta: ランク外 (UR)</span></div></td>
+</tr>
 <tr>
 <th>年齢 / 生年月日</th>
 <td><strong>1988年9月6日 (38歳)</strong></td>
